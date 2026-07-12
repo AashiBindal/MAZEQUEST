@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Maze Quest | Story</title>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="../css/global.css">
+
+    <link rel="stylesheet" href="../css/story.css">
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+
+    <div class="background"></div>
+
+    <div class="fog"></div>
+
+    <div id="particles"></div>
+
+    <div class="cursor-glow"></div>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="top-bar">
+
+        <button id="backBtn" class="back-btn">
+
+            ⬅ Back
+
+        </button>
+
+        <div class="level-info">
+
+            <h2 id="levelTitle">
+
+                LEVEL 1
+
+            </h2>
+
+            <p id="difficulty">
+
+                EASY MODE
+
+            </p>
+
+        </div>
+
+        <div class="player-box">
+
+            <span id="playerAvatar">
+
+                🧙
+
+            </span>
+
+            <span id="playerName">
+
+                Player
+
+            </span>
+
+        </div>
+
+    </header>
+
+    <!-- ================= MAIN CONTAINER ================= -->
+
+    <main class="story-container">
+
+        <!-- Story Card -->
+
+        <section class="story-card">
+
+            <h1 id="storyTitle">
+
+                🌲 The Lost Forest
+
+            </h1>
+
+            <p id="storyDescription">
+
+                Welcome explorer! The magical forest hides an ancient gate.
+                Solve the puzzle to unlock the path and continue your adventure.
+
+            </p>
+
+        </section>
+
+        <!-- Guide -->
+
+        <section class="guide-card">
+
+            <div class="guide-avatar">
+
+                🧙
+
+            </div>
+
+            <div class="guide-text">
+
+                <h3>Maze Wizard</h3>
+
+                <p id="guideMessage">
+
+                    "Every maze has a secret. Think carefully before choosing your answer."
+
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- Puzzle -->
+
+        <section class="quiz-card">
+
+            <h2>
+
+                ❓ Puzzle Challenge
+
+            </h2>
+
+            <p id="question">
+
+                I have keys but no locks.
+                I have space but no rooms.
+                You can enter but cannot leave.
+                What am I?
+
+            </p>
+
+            <div class="options">
+
+                <button class="option" data-answer="Keyboard">
+
+                    ⌨ Keyboard
+
+                </button>
+
+                <button class="option" data-answer="House">
+
+                    🏠 House
+
+                </button>
+
+                <button class="option" data-answer="Car">
+
+                    🚗 Car
+
+                </button>
+
+                <button class="option" data-answer="Forest">
+
+                    🌳 Forest
+
+                </button>
+
+            </div>
+
+            <p id="resultMessage"></p>
+
+        </section>
+
+        <!-- Rewards -->
+
+        <section class="reward-card">
+
+            <h2>
+
+                🎁 Level Rewards
+
+            </h2>
+
+            <div class="reward-grid">
+
+                <div class="reward-item">
+
+                    🪙 <span id="rewardCoins">20 Coins</span>
+
+                </div>
+
+                <div class="reward-item">
+
+                    ⭐ <span id="rewardXP">10 XP</span>
+
+                </div>
+
+                <div class="reward-item">
+
+                    💎 <span id="rewardBonus">Bonus Hint</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Continue -->
+
+        <div class="button-area">
+
+            <button id="continueBtn" disabled>
+
+                ▶ Start Maze
+
+            </button>
+
+        </div>
+
+    </main>
+
+    <!-- JS -->
+
+    <script src="../js/story.js"></script>
+
+</body>
+
+</html>

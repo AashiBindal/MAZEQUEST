@@ -1,0 +1,235 @@
+/*============================
+
+        MAZE QUEST
+      GLOBAL STYLES
+
+=============================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root{
+
+--primary:#5B5FEF;
+--secondary:#00D4FF;
+--gold:#FFD54A;
+--danger:#FF4D6D;
+--success:#22C55E;
+
+--bg:#070B18;
+
+--card:#131C2F;
+
+--white:#F8FAFC;
+
+--gray:#A9B5C9;
+
+--shadow:
+0 10px 40px rgba(0,0,0,.35);
+
+}
+
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+}
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+body{
+
+font-family:'Poppins',sans-serif;
+
+background:var(--bg);
+
+color:white;
+
+overflow-x:hidden;
+
+}
+
+/* Container */
+
+.container{
+
+width:90%;
+
+max-width:1400px;
+
+margin:auto;
+
+}
+
+/* Buttons */
+
+.btn{
+
+padding:15px 40px;
+
+border:none;
+
+border-radius:15px;
+
+cursor:pointer;
+
+font-size:18px;
+
+font-weight:600;
+
+transition:.35s;
+
+font-family:'Poppins';
+
+}
+
+/* Primary */
+
+.btn-primary{
+
+background:linear-gradient(
+90deg,
+#00D4FF,
+#5B5FEF);
+
+color:white;
+
+box-shadow:
+0 0 20px rgba(91,95,239,.5);
+
+}
+
+.btn-primary:hover{
+
+transform:translateY(-5px);
+
+box-shadow:
+0 0 40px rgba(91,95,239,.8);
+
+}
+
+/* Gold */
+
+.btn-gold{
+
+background:linear-gradient(
+90deg,
+#FFD54A,
+#FFB300);
+
+color:#222;
+
+}
+
+.btn-gold:hover{
+
+transform:translateY(-5px);
+
+}
+
+/* Card */
+
+.card{
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border-radius:20px;
+
+box-shadow:var(--shadow);
+
+}
+
+/* Input */
+
+.input{
+
+width:100%;
+
+padding:15px;
+
+border-radius:15px;
+
+background:#1B2742;
+
+border:none;
+
+outline:none;
+
+color:white;
+
+font-size:16px;
+
+}
+
+/* Heading */
+
+.heading{
+
+font-family:'Orbitron';
+
+letter-spacing:2px;
+
+}
+
+/* Glow */
+
+.glow{
+
+animation:glow 2s infinite alternate;
+
+}
+
+@keyframes glow{
+
+from{
+
+filter:drop-shadow(0 0 10px #5B5FEF);
+
+}
+
+to{
+
+filter:drop-shadow(0 0 35px #00D4FF);
+
+}
+
+}
+
+/* Fade */
+
+.fade{
+
+animation:fade .8s ease;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}

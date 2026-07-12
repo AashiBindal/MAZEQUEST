@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Maze Quest | Select Difficulty</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/difficulty.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <div class="background"></div>
+
+    <div class="fog"></div>
+
+    <div id="particles"></div>
+
+    <div class="cursor-glow"></div>
+
+    <!-- Main Container -->
+
+    <div class="difficulty-container">
+
+        <!-- Heading -->
+
+        <h1 class="title">
+
+            SELECT DIFFICULTY
+
+        </h1>
+
+        <p class="subtitle">
+
+            Choose your adventure wisely!
+
+        </p>
+
+        <!-- Difficulty Cards -->
+
+        <div class="difficulty-grid">
+
+            <!-- EASY -->
+
+            <div class="difficulty-card easy" id="easy">
+
+                <div class="difficulty-header">
+
+                    <h2>🟢 EASY</h2>
+
+                    <span class="badge">Recommended</span>
+
+                </div>
+
+                <div class="maze-preview">
+
+                    S → → → → G
+
+                </div>
+
+                <ul>
+
+                    <li>📐 Maze Size : 10 × 10</li>
+
+                    <li>💡 Unlimited Hints</li>
+
+                    <li>⏱ No Timer</li>
+
+                    <li>🪙 Reward : x1 Coins</li>
+
+                </ul>
+
+            </div>
+
+            <!-- MEDIUM -->
+
+            <div class="difficulty-card medium" id="medium">
+
+                <div class="difficulty-header">
+
+                    <h2>🟡 MEDIUM</h2>
+
+                </div>
+
+                <div class="maze-preview">
+
+                    S → ↑ ↓ → → G
+
+                </div>
+
+                <ul>
+
+                    <li>📐 Maze Size : 20 × 20</li>
+
+                    <li>💡 3 Hints Only</li>
+
+                    <li>⏱ 60 Seconds</li>
+
+                    <li>🪙 Reward : x2 Coins</li>
+
+                </ul>
+
+            </div>
+
+            <!-- EXTREME -->
+
+            <div class="difficulty-card extreme" id="extreme">
+
+                <div class="difficulty-header">
+
+                    <h2>🔴 EXTREME</h2>
+
+                    <span class="badge danger">Maze Master</span>
+
+                </div>
+
+                <div class="maze-preview">
+
+                    S ↗ ↓ ← ↑ → ↘ G
+
+                </div>
+
+                <ul>
+
+                    <li>📐 Maze Size : 35 × 35</li>
+
+                    <li>❌ No Hints</li>
+
+                    <li>⏱ 30 Seconds</li>
+
+                    <li>🪙 Reward : x5 Coins</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <!-- Information -->
+
+        <div class="info-box">
+
+            <h3>💡 Difficulty Guide</h3>
+
+            <p>
+
+                Your selected difficulty will determine maze complexity,
+                rewards, hints and time limit.
+
+            </p>
+
+        </div>
+
+        <!-- Buttons -->
+
+        <div class="buttons">
+
+            <button id="backBtn" class="back-btn">
+
+                ⬅ Back
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- JS -->
+
+    <script src="../js/difficulty.js"></script>
+
+</body>
+
+</html>

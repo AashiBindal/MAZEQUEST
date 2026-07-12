@@ -1,0 +1,698 @@
+/* ===========================
+   MAZE QUEST - SPLASH SCREEN
+   PART A
+=========================== */
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* ===========================
+   VARIABLES
+=========================== */
+
+:root{
+
+    --bg:#090E1A;
+    --card:#111827;
+    --primary:#5B5FEF;
+    --secondary:#00D4FF;
+    --gold:#FFD54A;
+    --text:#F8FAFC;
+    --gray:#B8C2D1;
+
+}
+
+/* ===========================
+   RESET
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    overflow:hidden;
+    background:var(--bg);
+
+    font-family:'Poppins',sans-serif;
+
+    color:white;
+
+    width:100vw;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+
+}
+
+/* ===========================
+   BACKGROUND
+=========================== */
+
+.background{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background:
+    radial-gradient(circle at top,#243B73 0%,transparent 35%),
+    radial-gradient(circle at bottom,#10264F 0%,transparent 30%),
+    linear-gradient(160deg,#050816,#090E1A,#0E1631);
+
+    z-index:-3;
+
+}
+
+/* Moving Glow */
+
+.background::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:600px;
+    height:600px;
+
+    background:#5B5FEF;
+
+    filter:blur(160px);
+
+    opacity:.18;
+
+    border-radius:50%;
+
+    top:-180px;
+    left:-150px;
+
+    animation:moveGlow1 12s linear infinite alternate;
+
+}
+
+.background::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    background:#00D4FF;
+
+    filter:blur(170px);
+
+    opacity:.15;
+
+    border-radius:50%;
+
+    bottom:-150px;
+    right:-120px;
+
+    animation:moveGlow2 14s linear infinite alternate;
+
+}
+
+/* ===========================
+   PARTICLES
+=========================== */
+
+#particles{
+
+    position:absolute;
+
+    inset:0;
+
+    overflow:hidden;
+
+    z-index:-2;
+
+}
+
+/* JS particles */
+
+.particle{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:white;
+
+    opacity:.8;
+
+    animation:float linear infinite;
+
+}
+
+/* ===========================
+   MAIN CONTAINER
+=========================== */
+
+.container{
+
+    width:90%;
+    max-width:900px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:45px;
+
+}
+
+/* ===========================
+   LOGO
+=========================== */
+
+.logo-section{
+
+    text-align:center;
+
+    animation:fadeDown 1.5s ease;
+
+}
+
+.logo{
+
+    font-family:'Orbitron',sans-serif;
+
+    font-size:78px;
+
+    letter-spacing:8px;
+
+    color:white;
+
+    text-transform:uppercase;
+
+    text-shadow:
+    0 0 10px #5B5FEF,
+    0 0 20px #5B5FEF,
+    0 0 45px #00D4FF,
+    0 0 80px #00D4FF;
+
+    animation:logoGlow 2s infinite alternate;
+
+}
+
+.logo span{
+
+    color:var(--gold);
+
+    text-shadow:
+    0 0 10px #FFD54A,
+    0 0 25px #FFD54A,
+    0 0 60px #FFD54A;
+
+}
+
+.tagline{
+
+    margin-top:15px;
+
+    color:var(--gray);
+
+    font-size:20px;
+
+    letter-spacing:3px;
+
+}
+
+/* Decorative Line */
+
+.logo-section::after{
+
+    content:"";
+
+    display:block;
+
+    width:240px;
+
+    height:4px;
+
+    margin:25px auto 0;
+
+    border-radius:50px;
+
+    background:linear-gradient(
+    90deg,
+    transparent,
+    #00D4FF,
+    #5B5FEF,
+    transparent);
+
+}
+
+/* ===========================
+   LOADING SECTION
+=========================== */
+
+.loading-section{
+
+    width:100%;
+
+    max-width:700px;
+
+}
+/* ===========================
+   LOADING TEXT
+=========================== */
+
+.loading-text{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+    color:white;
+
+}
+
+#loadingMessage{
+
+    font-size:18px;
+
+    font-weight:500;
+
+    letter-spacing:1px;
+
+}
+
+#percentage{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    color:var(--gold);
+
+    font-family:'Orbitron',sans-serif;
+
+}
+
+/* ===========================
+   PROGRESS BAR
+=========================== */
+
+.progress-bar{
+
+    width:100%;
+    height:18px;
+
+    background:rgba(255,255,255,.08);
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+    0 0 20px rgba(0,212,255,.15);
+
+}
+
+.progress{
+
+    width:0%;
+
+    height:100%;
+
+    border-radius:50px;
+
+    background:linear-gradient(
+        90deg,
+        #00D4FF,
+        #5B5FEF,
+        #8B5CF6
+    );
+
+    box-shadow:
+        0 0 10px #00D4FF,
+        0 0 25px #5B5FEF,
+        0 0 45px #8B5CF6;
+
+    transition:width .25s linear;
+
+    position:relative;
+
+}
+
+.progress::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:0;
+    top:0;
+
+    width:70px;
+    height:100%;
+
+    background:rgba(255,255,255,.35);
+
+    filter:blur(8px);
+
+}
+
+/* ===========================
+   TIP BOX
+=========================== */
+
+.tip-box{
+
+    width:100%;
+    max-width:720px;
+
+    display:flex;
+
+    gap:18px;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    backdrop-filter:blur(18px);
+
+    animation:fadeUp 1.5s ease;
+
+}
+
+.tip-icon{
+
+    font-size:42px;
+
+}
+
+.tip-content h3{
+
+    color:var(--gold);
+
+    font-size:17px;
+
+    margin-bottom:8px;
+
+    letter-spacing:2px;
+
+}
+
+.tip-content p{
+
+    color:#d7e1f1;
+
+    line-height:1.7;
+
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+
+.footer{
+
+    position:absolute;
+
+    bottom:25px;
+
+    width:100%;
+
+    text-align:center;
+
+    color:#93a4c4;
+
+    font-size:15px;
+
+    letter-spacing:2px;
+
+}
+
+/* ===========================
+   ANIMATIONS
+=========================== */
+
+@keyframes logoGlow{
+
+    from{
+
+        transform:scale(1);
+
+    }
+
+    to{
+
+        transform:scale(1.04);
+
+    }
+
+}
+
+@keyframes fadeDown{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-60px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(60px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes moveGlow1{
+
+    from{
+
+        transform:translate(0,0);
+
+    }
+
+    to{
+
+        transform:translate(120px,100px);
+
+    }
+
+}
+
+@keyframes moveGlow2{
+
+    from{
+
+        transform:translate(0,0);
+
+    }
+
+    to{
+
+        transform:translate(-120px,-80px);
+
+    }
+
+}
+
+@keyframes float{
+
+    from{
+
+        transform:translateY(100vh);
+
+        opacity:0;
+
+    }
+
+    20%{
+
+        opacity:.9;
+
+    }
+
+    80%{
+
+        opacity:.7;
+
+    }
+
+    to{
+
+        transform:translateY(-120vh);
+
+        opacity:0;
+
+    }
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:992px){
+
+.logo{
+
+    font-size:60px;
+
+}
+
+.tagline{
+
+    font-size:18px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.container{
+
+    gap:35px;
+
+}
+
+.logo{
+
+    font-size:45px;
+
+    letter-spacing:4px;
+
+}
+
+.tagline{
+
+    font-size:16px;
+
+}
+
+.loading-text{
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.tip-box{
+
+    flex-direction:column;
+
+    text-align:center;
+
+}
+
+.tip-icon{
+
+    font-size:34px;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.logo{
+
+    font-size:34px;
+
+}
+
+.tagline{
+
+    font-size:14px;
+
+}
+
+#loadingMessage{
+
+    font-size:15px;
+
+}
+
+#percentage{
+
+    font-size:20px;
+
+}
+
+.progress-bar{
+
+    height:14px;
+
+}
+
+.tip-content h3{
+
+    font-size:15px;
+
+}
+
+.tip-content p{
+
+    font-size:14px;
+
+}
+
+.footer{
+
+    font-size:12px;
+
+}
+
+}

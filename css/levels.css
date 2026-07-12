@@ -1,0 +1,750 @@
+/*==========================================
+        MAZE QUEST - LEVELS PAGE
+==========================================*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    width:100%;
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    font-family:'Poppins',sans-serif;
+
+    background:#070B18;
+
+    color:white;
+
+    position:relative;
+
+}
+
+/*==================================
+        BACKGROUND
+==================================*/
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle at top,#1A2458 0%,transparent 35%),
+    radial-gradient(circle at bottom,#0D1A3B 0%,transparent 30%),
+    linear-gradient(160deg,#050816,#090E1A,#111C38);
+
+    z-index:-5;
+
+}
+
+.background::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:650px;
+    height:650px;
+
+    background:#5B5FEF;
+
+    border-radius:50%;
+
+    filter:blur(180px);
+
+    opacity:.18;
+
+    top:-180px;
+    left:-180px;
+
+    animation:moveGlow1 15s infinite alternate;
+
+}
+
+.background::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:550px;
+    height:550px;
+
+    background:#9333EA;
+
+    border-radius:50%;
+
+    filter:blur(180px);
+
+    opacity:.18;
+
+    bottom:-180px;
+    right:-180px;
+
+    animation:moveGlow2 18s infinite alternate;
+
+}
+
+/*==================================
+            FOG
+==================================*/
+
+.fog{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+
+    linear-gradient(
+
+    transparent,
+
+    rgba(255,255,255,.03),
+
+    transparent
+
+    );
+
+    animation:fogMove 18s linear infinite;
+
+    z-index:-4;
+
+}
+
+/*==================================
+        PARTICLES
+==================================*/
+
+#particles{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    z-index:-3;
+
+}
+
+.particle{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:white;
+
+    animation:float linear infinite;
+
+}
+
+/*==================================
+        HEADER
+==================================*/
+
+.top-bar{
+
+    width:95%;
+
+    margin:25px auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.back-btn{
+
+    padding:14px 22px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:16px;
+
+    background:linear-gradient(90deg,#5B5FEF,#00D4FF);
+
+    transition:.3s;
+
+}
+
+.back-btn:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:0 0 20px #00D4FF;
+
+}
+
+.difficulty-box{
+
+    text-align:center;
+
+}
+
+.difficulty-box h2{
+
+    font-family:'Orbitron';
+
+    font-size:28px;
+
+}
+
+.difficulty-box p{
+
+    margin-top:8px;
+
+    color:#C9D6F2;
+
+}
+
+.player-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:22px;
+
+}
+
+#playerAvatar{
+
+    font-size:35px;
+
+}
+
+/*==================================
+        TITLE
+==================================*/
+
+.title-section{
+
+    text-align:center;
+
+    margin-top:40px;
+
+}
+
+.title-section h1{
+
+    font-size:50px;
+
+    font-family:'Orbitron';
+
+    text-shadow:
+
+    0 0 20px #00D4FF,
+
+    0 0 45px #5B5FEF;
+
+}
+
+.title-section p{
+
+    margin-top:12px;
+
+    color:#C9D6F2;
+
+}
+
+/*==================================
+        PROGRESS
+==================================*/
+
+.progress-section{
+
+    width:90%;
+
+    margin:45px auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:25px;
+
+}
+
+.progress-card{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    text-align:center;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    transition:.3s;
+
+}
+
+.progress-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 0 20px #00D4FF;
+
+}
+
+.progress-card h3{
+
+    margin-bottom:15px;
+
+}
+
+.progress-card span{
+
+    font-size:28px;
+
+    font-weight:bold;
+
+}
+
+/*==================================
+        LEVEL GRID
+==================================*/
+
+.levels-grid{
+
+    width:90%;
+
+    margin:50px auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+
+    gap:25px;
+
+}
+/*==================================
+        LEVEL CARDS
+==================================*/
+
+.level-card{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    text-align:center;
+
+    border:2px solid transparent;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.level-card h3{
+
+    margin:12px 0;
+
+    font-size:22px;
+
+    font-family:'Orbitron',sans-serif;
+
+}
+
+.level-card p{
+
+    font-size:14px;
+
+    color:#D7E4FF;
+
+}
+
+
+/*==================================
+        UNLOCKED
+==================================*/
+
+.level-card.unlocked{
+
+    border-color:#00FF99;
+
+}
+
+.level-card.unlocked:hover{
+
+    transform:translateY(-8px) scale(1.05);
+
+    box-shadow:
+
+    0 0 25px #00FF99,
+
+    0 0 60px rgba(0,255,153,.35);
+
+}
+
+
+/*==================================
+        LOCKED
+==================================*/
+
+.level-card.locked{
+
+    opacity:.45;
+
+    cursor:not-allowed;
+
+    border-color:#666;
+
+}
+
+.level-card.locked:hover{
+
+    transform:none;
+
+}
+
+
+/*==================================
+        COMPLETED
+==================================*/
+
+.level-card.completed{
+
+    border-color:#FFD700;
+
+    box-shadow:
+
+    0 0 20px #FFD700;
+
+}
+
+.level-card.completed::after{
+
+    content:"✔";
+
+    position:absolute;
+
+    top:10px;
+
+    right:12px;
+
+    color:#FFD700;
+
+    font-size:20px;
+
+}
+
+
+/*==================================
+        REWARD LEVEL
+==================================*/
+
+.level-card.reward{
+
+    border-color:#00D4FF;
+
+}
+
+.level-card.reward::before{
+
+    content:"🎁";
+
+    position:absolute;
+
+    top:10px;
+
+    left:12px;
+
+    font-size:22px;
+
+}
+
+
+/*==================================
+        BOSS LEVEL
+==================================*/
+
+.level-card.boss{
+
+    border-color:#FF4D6D;
+
+}
+
+.level-card.boss::before{
+
+    content:"👑";
+
+    position:absolute;
+
+    top:10px;
+
+    left:12px;
+
+    font-size:22px;
+
+}
+
+.level-card.boss:hover{
+
+    box-shadow:
+
+    0 0 30px #FF4D6D,
+
+    0 0 60px rgba(255,77,109,.4);
+
+}
+
+
+/*==================================
+        LEGEND
+==================================*/
+
+.legend{
+
+    width:90%;
+
+    margin:40px auto;
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:25px;
+
+    padding:20px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:20px;
+
+}
+
+.legend div{
+
+    font-size:15px;
+
+}
+
+
+/*==================================
+        FOOTER
+==================================*/
+
+footer{
+
+    margin:40px 0;
+
+    text-align:center;
+
+    color:#C9D6F2;
+
+}
+
+
+/*==================================
+        CURSOR GLOW
+==================================*/
+
+.cursor-glow{
+
+    position:fixed;
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:50%;
+
+    background:
+
+    radial-gradient(circle,
+
+    rgba(91,95,239,.35),
+
+    transparent 70%);
+
+    pointer-events:none;
+
+    transform:translate(-50%,-50%);
+
+    z-index:-1;
+
+    transition:.08s linear;
+
+}
+
+
+/*==================================
+        ANIMATIONS
+==================================*/
+
+@keyframes moveGlow1{
+
+    from{
+
+        transform:translate(0,0);
+
+    }
+
+    to{
+
+        transform:translate(120px,80px);
+
+    }
+
+}
+
+@keyframes moveGlow2{
+
+    from{
+
+        transform:translate(0,0);
+
+    }
+
+    to{
+
+        transform:translate(-120px,-80px);
+
+    }
+
+}
+
+@keyframes fogMove{
+
+    from{
+
+        transform:translateX(-10%);
+
+    }
+
+    to{
+
+        transform:translateX(10%);
+
+    }
+
+}
+
+@keyframes float{
+
+    0%{
+
+        transform:translateY(110vh);
+
+        opacity:0;
+
+    }
+
+    20%{
+
+        opacity:1;
+
+    }
+
+    80%{
+
+        opacity:.7;
+
+    }
+
+    100%{
+
+        transform:translateY(-120vh);
+
+        opacity:0;
+
+    }
+
+}
+
+
+/*==================================
+        RESPONSIVE
+==================================*/
+
+@media(max-width:992px){
+
+    .progress-section{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .top-bar{
+
+        flex-direction:column;
+
+        gap:20px;
+
+    }
+
+    .title-section h1{
+
+        font-size:36px;
+
+    }
+
+    .levels-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .levels-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .legend{
+
+        flex-direction:column;
+
+        align-items:center;
+
+    }
+
+}

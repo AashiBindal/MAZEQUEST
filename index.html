@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Maze Quest</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/splash.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="background"></div>
+
+    <!-- Floating Particles -->
+    <div id="particles"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Logo -->
+        <div class="logo-section">
+
+            <h1 class="logo">
+                MAZE
+                <span>QUEST</span>
+            </h1>
+
+            <p class="tagline">
+                Explore • Solve • Escape
+            </p>
+
+        </div>
+
+        <!-- Loading Section -->
+        <div class="loading-section">
+
+            <div class="loading-text">
+
+                <span id="loadingMessage">
+                    Initializing Maze Engine...
+                </span>
+
+                <span id="percentage">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div class="progress">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Tip Box -->
+
+        <div class="tip-box">
+
+            <div class="tip-icon">
+                💡
+            </div>
+
+            <div class="tip-content">
+
+                <h3>GAME TIP</h3>
+
+                <p id="gameTip">
+
+                    BFS always finds the shortest path in an unweighted maze.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+
+    <div class="footer">
+
+        Maze Quest © 2026
+
+    </div>
+
+    <!-- JavaScript -->
+
+    <script src="js/splash.js"></script>
+
+</body>
+
+</html>

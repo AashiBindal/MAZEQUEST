@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Maze Quest | Levels</title>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/levels.css">
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <div class="background"></div>
+
+    <div class="fog"></div>
+
+    <div id="particles"></div>
+
+    <div class="cursor-glow"></div>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="top-bar">
+
+        <button id="backBtn" class="back-btn">
+
+            ⬅ Back
+
+        </button>
+
+        <div class="difficulty-box">
+
+            <h2 id="difficultyTitle">
+
+                EASY MODE
+
+            </h2>
+
+            <p id="difficultyInfo">
+
+                10 × 10 Maze • Unlimited Hints
+
+            </p>
+
+        </div>
+
+        <div class="player-box">
+
+            <span id="playerAvatar">
+
+                🧙
+
+            </span>
+
+            <span id="playerName">
+
+                Player
+
+            </span>
+
+        </div>
+
+    </header>
+
+    <!-- ================= TITLE ================= -->
+
+    <section class="title-section">
+
+        <h1>
+
+            SELECT LEVEL
+
+        </h1>
+
+        <p>
+
+            Complete each level to unlock the next adventure.
+
+        </p>
+
+    </section>
+
+    <!-- ================= PROGRESS ================= -->
+
+    <section class="progress-section">
+
+        <div class="progress-card">
+
+            <h3>
+
+                🎯 Current Level
+
+            </h3>
+
+            <span id="currentLevel">
+
+                1
+
+            </span>
+
+        </div>
+
+        <div class="progress-card">
+
+            <h3>
+
+                ⭐ Completed
+
+            </h3>
+
+            <span id="completedLevels">
+
+                0
+
+            </span>
+
+        </div>
+
+        <div class="progress-card">
+
+            <h3>
+
+                🪙 Coins
+
+            </h3>
+
+            <span id="coins">
+
+                0
+
+            </span>
+
+        </div>
+
+    </section>
+
+    <!-- ================= LEVEL GRID ================= -->
+
+    <section>
+
+        <div id="levelsGrid" class="levels-grid">
+
+            <!-- Levels will come from JS -->
+
+        </div>
+
+    </section>
+
+    <!-- ================= LEGEND ================= -->
+
+    <section class="legend">
+
+        <div>🟢 Unlocked</div>
+
+        <div>🔒 Locked</div>
+
+        <div>✅ Completed</div>
+
+        <div>🎁 Reward Level</div>
+
+        <div>👑 Boss Level</div>
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+
+            Unlock all levels and become the Maze Master!
+
+        </p>
+
+    </footer>
+
+    <!-- JS -->
+
+    <script src="../js/levels.js"></script>
+
+</body>
+
+</html>

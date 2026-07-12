@@ -1,0 +1,568 @@
+/*==========================================
+        MAZE QUEST - WELCOME SCREEN
+==========================================*/
+
+/* Full Screen */
+
+body{
+
+    width:100%;
+    height:100vh;
+
+    overflow:hidden;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+
+    background:#070B18;
+
+}
+
+
+/*=============================
+        BACKGROUND
+==============================*/
+
+.background{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background:
+    radial-gradient(circle at top,#1A2458 0%,transparent 35%),
+    radial-gradient(circle at bottom,#0D1A3B 0%,transparent 30%),
+    linear-gradient(160deg,#050816,#090E1A,#111C38);
+
+    z-index:-5;
+
+}
+
+
+/* Moving Blue Glow */
+
+.background::before{
+
+content:"";
+
+position:absolute;
+
+width:650px;
+height:650px;
+
+background:#5B5FEF;
+
+border-radius:50%;
+
+filter:blur(180px);
+
+opacity:.18;
+
+top:-180px;
+left:-180px;
+
+animation:moveGlow1 15s infinite alternate;
+
+}
+
+
+/* Purple Glow */
+
+.background::after{
+
+content:"";
+
+position:absolute;
+
+width:550px;
+height:550px;
+
+background:#9333EA;
+
+border-radius:50%;
+
+filter:blur(180px);
+
+opacity:.18;
+
+bottom:-180px;
+right:-150px;
+
+animation:moveGlow2 18s infinite alternate;
+
+}
+
+
+/*=============================
+        FOG
+==============================*/
+
+.fog{
+
+position:absolute;
+
+width:100%;
+height:100%;
+
+background:
+
+linear-gradient(
+
+transparent,
+
+rgba(255,255,255,.03),
+
+transparent
+
+);
+
+animation:fogMove 18s linear infinite;
+
+opacity:.6;
+
+z-index:-4;
+
+}
+
+
+/*=============================
+        PARTICLES
+==============================*/
+
+#particles{
+
+position:absolute;
+
+inset:0;
+
+overflow:hidden;
+
+z-index:-3;
+
+}
+
+
+.particle{
+
+position:absolute;
+
+border-radius:50%;
+
+background:white;
+
+animation:float linear infinite;
+
+}
+/*=============================
+        MAIN CONTAINER
+==============================*/
+
+.welcome-container{
+
+width:100%;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+gap:40px;
+
+}
+
+
+/*=============================
+        LOGO
+==============================*/
+
+.logo{
+
+font-size:80px;
+
+font-family:'Orbitron';
+
+letter-spacing:8px;
+
+text-align:center;
+
+color:white;
+
+text-shadow:
+
+0 0 20px #5B5FEF,
+
+0 0 50px #00D4FF,
+
+0 0 90px #00D4FF;
+
+}
+
+
+.logo span{
+
+color:#FFD54A;
+
+text-shadow:
+
+0 0 20px #FFD54A,
+
+0 0 50px #FFD54A;
+
+}
+
+
+.subtitle{
+
+margin-top:18px;
+
+font-size:20px;
+
+letter-spacing:4px;
+
+color:#C9D6F2;
+
+text-align:center;
+
+}
+.menu{
+
+display:flex;
+
+flex-direction:column;
+
+gap:20px;
+
+}
+
+
+.menu-btn{
+
+width:340px;
+
+padding:18px;
+
+font-size:20px;
+
+font-weight:600;
+
+border:none;
+
+border-radius:18px;
+
+cursor:pointer;
+
+color:white;
+
+background:
+
+rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.12);
+
+transition:.4s;
+
+box-shadow:
+
+0 0 25px rgba(0,0,0,.3);
+
+}
+
+
+.menu-btn:hover{
+
+transform:
+
+translateY(-5px)
+
+scale(1.04);
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#00D4FF,
+
+#5B5FEF
+
+);
+
+box-shadow:
+
+0 0 30px #00D4FF,
+
+0 0 60px #5B5FEF;
+
+}
+
+
+.play-btn{
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#00D4FF,
+
+#5B5FEF
+
+);
+
+}
+
+
+.exit:hover{
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#FF4D6D,
+
+#D90429
+
+);
+
+}
+.version{
+
+position:absolute;
+
+bottom:30px;
+
+color:#9BA7C4;
+
+font-size:15px;
+
+letter-spacing:2px;
+
+}
+
+
+/*=============================
+        Animations
+==============================*/
+
+@keyframes moveGlow1{
+
+from{
+
+transform:translate(0,0);
+
+}
+
+to{
+
+transform:translate(120px,80px);
+
+}
+
+}
+
+
+@keyframes moveGlow2{
+
+from{
+
+transform:translate(0,0);
+
+}
+
+to{
+
+transform:translate(-120px,-80px);
+
+}
+
+}
+
+
+@keyframes fogMove{
+
+0%{
+
+transform:translateX(-10%);
+
+}
+
+100%{
+
+transform:translateX(10%);
+
+}
+
+}
+
+
+@keyframes float{
+
+0%{
+
+transform:translateY(110vh);
+
+opacity:0;
+
+}
+
+20%{
+
+opacity:1;
+
+}
+
+80%{
+
+opacity:.7;
+
+}
+
+100%{
+
+transform:translateY(-120vh);
+
+opacity:0;
+
+}
+
+}
+/*==========================================
+        CURSOR GLOW EFFECT
+==========================================*/
+
+.cursor-glow{
+
+    position:fixed;
+
+    width:220px;
+    height:220px;
+
+    border-radius:50%;
+
+    background:radial-gradient(
+        circle,
+        rgba(91,95,239,.35),
+        rgba(0,212,255,.15),
+        transparent 70%
+    );
+
+    pointer-events:none;
+
+    transform:translate(-50%,-50%);
+
+    z-index:999;
+
+    transition:.08s linear;
+
+    filter:blur(10px);
+
+}
+
+
+/*==========================================
+        PAGE FADE OUT
+==========================================*/
+
+.fade-out{
+
+    animation:fadeOut .7s forwards;
+
+}
+
+@keyframes fadeOut{
+
+    from{
+
+        opacity:1;
+        transform:scale(1);
+
+    }
+
+    to{
+
+        opacity:0;
+        transform:scale(1.03);
+
+    }
+
+}
+
+
+/*==========================================
+        RESPONSIVE
+==========================================*/
+
+@media(max-width:768px){
+
+    .logo{
+
+        font-size:55px;
+
+        letter-spacing:4px;
+
+    }
+
+    .subtitle{
+
+        font-size:16px;
+
+        letter-spacing:2px;
+
+    }
+
+    .menu-btn{
+
+        width:280px;
+
+        font-size:18px;
+
+        padding:16px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .logo{
+
+        font-size:38px;
+
+    }
+
+    .subtitle{
+
+        font-size:14px;
+
+    }
+
+    .menu-btn{
+
+        width:240px;
+
+        font-size:16px;
+
+        padding:14px;
+
+    }
+
+    .version{
+
+        font-size:12px;
+
+    }
+
+}

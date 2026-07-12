@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Maze Quest | Dashboard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background"></div>
+    <div class="fog"></div>
+    <div id="particles"></div>
+    <div class="cursor-glow"></div>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="top-bar">
+
+        <div class="player-info">
+
+            <div class="avatar" id="playerAvatar">
+                🧙
+            </div>
+
+            <div>
+
+                <h2 id="playerName">
+                    Player
+                </h2>
+
+                <p class="rank">
+                    Maze Explorer
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="top-icons">
+
+            <button class="icon-btn">
+                🔔
+            </button>
+
+            <button class="icon-btn" id="settingsBtn">
+                ⚙
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- ================= TITLE ================= -->
+
+    <section class="title-section">
+
+        <h1>
+            🌟 MAZE QUEST 🌟
+        </h1>
+
+        <p>
+            Solve • Explore • Escape
+        </p>
+
+    </section>
+
+    <!-- ================= PLAYER STATS ================= -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+
+            <h3>🪙 Coins</h3>
+
+            <span id="coins">
+                0
+            </span>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3>⭐ Stars</h3>
+
+            <span id="stars">
+                0
+            </span>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3>❤️ Lives</h3>
+
+            <span id="lives">
+                3
+            </span>
+
+        </div>
+
+    </section>
+
+    <!-- ================= XP ================= -->
+
+    <section class="xp-section">
+
+        <div class="xp-text">
+
+            XP Progress
+
+        </div>
+
+        <div class="xp-bar">
+
+            <div class="xp-fill" id="xpFill"></div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= CURRENT LEVEL ================= -->
+
+    <section class="current-level">
+
+        🎯 Current Level :
+        <span id="currentLevel">
+            1
+        </span>
+
+    </section>
+
+    <!-- ================= MENU ================= -->
+
+    <section class="dashboard-menu">
+
+        <button class="menu-card" id="continueBtn">
+
+            ▶ Continue
+
+        </button>
+
+        <button class="menu-card" id="difficultyBtn">
+
+            🎯 Difficulty
+
+        </button>
+
+        <button class="menu-card" id="levelsBtn">
+
+            🗺 Levels
+
+        </button>
+
+        <button class="menu-card" id="profileBtn">
+
+            👤 Profile
+
+        </button>
+
+        <button class="menu-card" id="leaderboardBtn">
+
+            🏆 Leaderboard
+
+        </button>
+
+        <button class="menu-card" id="algorithmBtn">
+
+            🧠 Algorithm Lab
+
+        </button>
+
+        <button class="menu-card" id="achievementBtn">
+
+            🏅 Achievements
+
+        </button>
+
+        <button class="menu-card" id="statisticsBtn">
+
+            📊 Statistics
+
+        </button>
+
+    </section>
+
+    <!-- ================= DAILY CHALLENGE ================= -->
+
+    <section class="daily-box">
+
+        <h2>
+
+            🎁 Daily Challenge
+
+        </h2>
+
+        <p>
+
+            Complete today's maze to earn
+
+            <strong>
+
+                +100 Coins
+
+            </strong>
+
+            and
+
+            <strong>
+
+                +1 Star
+
+            </strong>
+
+        </p>
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <button class="logout-btn" id="logoutBtn">
+
+            🚪 Logout
+
+        </button>
+
+    </footer>
+
+    <!-- JS -->
+
+    <script src="../js/dashboard.js"></script>
+
+</body>
+
+</html>
