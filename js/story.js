@@ -2,15 +2,17 @@
         MAZE QUEST - STORY PAGE
 ==========================================*/
 
-// ==========================================
-// ELEMENTS
-// ==========================================
+// ======================================
+// HTML ELEMENTS
+// ======================================
 
 const playerName = document.getElementById("playerName");
 const playerAvatar = document.getElementById("playerAvatar");
 
-const levelTitle = document.getElementById("levelTitle");
-const difficultyText = document.getElementById("difficulty");
+const difficultyMode = document.getElementById("difficultyMode");
+
+const levelNumber = document.getElementById("levelNumber");
+const worldName = document.getElementById("worldName");
 
 const storyTitle = document.getElementById("storyTitle");
 const storyDescription = document.getElementById("storyDescription");
@@ -18,25 +20,55 @@ const storyDescription = document.getElementById("storyDescription");
 const guideMessage = document.getElementById("guideMessage");
 
 const question = document.getElementById("question");
-const options = document.querySelectorAll(".option");
 
-const resultMessage = document.getElementById("resultMessage");
+const optionButtons =
+document.querySelectorAll(".option-btn");
 
-const rewardCoins = document.getElementById("rewardCoins");
-const rewardXP = document.getElementById("rewardXP");
-const rewardBonus = document.getElementById("rewardBonus");
+const rewardCoins =
+document.getElementById("rewardCoins");
 
-const continueBtn = document.getElementById("continueBtn");
-const backBtn = document.getElementById("backBtn");
+const rewardXP =
+document.getElementById("rewardXP");
 
-const particles = document.getElementById("particles");
-const cursorGlow = document.querySelector(".cursor-glow");
+const rewardItem =
+document.getElementById("rewardItem");
 
-// ==========================================
+const submitBtn =
+document.getElementById("submitBtn");
+
+const startMaze =
+document.getElementById("startMaze");
+
+const skipStory =
+document.getElementById("skipStory");
+
+const resultBox =
+document.getElementById("resultBox");
+
+const resultText =
+document.getElementById("resultText");
+
+const progressFill =
+document.getElementById("progressFill");
+
+const progressText =
+document.getElementById("progressText");
+
+const backBtn =
+document.getElementById("backBtn");
+
+const particleContainer =
+document.getElementById("particles");
+
+const cursorGlow =
+document.querySelector(".cursor-glow");
+
+// ======================================
 // LOAD PLAYER
-// ==========================================
+// ======================================
 
-let player = JSON.parse(localStorage.getItem("player"));
+const player =
+JSON.parse(localStorage.getItem("player"));
 
 if(!player){
 
@@ -44,222 +76,488 @@ if(!player){
 
 }
 
-playerName.textContent = player.name;
-playerAvatar.textContent = player.avatar;
+playerName.textContent =
+player.name || "Player";
 
-// ==========================================
+playerAvatar.textContent =
+player.avatar || "🧙";
+
+// ======================================
+// LOAD DIFFICULTY
+// ======================================
+
+const difficulty =
+localStorage.getItem("difficulty") || "Easy";
+
+difficultyMode.textContent =
+difficulty + " Mode";
+
+// ======================================
 // LOAD LEVEL
-// ==========================================
+// ======================================
 
-const level = Number(localStorage.getItem("selectedLevel")) || 1;
+const selectedLevel =
+parseInt(localStorage.getItem("selectedLevel")) || 1;
 
-const difficulty = localStorage.getItem("difficulty") || "Easy";
+levelNumber.textContent =
+"LEVEL " + selectedLevel;
 
-levelTitle.innerHTML = "LEVEL " + level;
+// ======================================
+// SELECT STORY ARRAY
+// ======================================
 
-difficultyText.innerHTML = difficulty.toUpperCase() + " MODE";
+let stories=[];
 
-// ==========================================
-// STORY DATA
-// ==========================================
+switch(difficulty){
 
-const stories=[
+    case "Easy":
 
-{
+        stories=easyStories;
 
-title:"🌲 The Lost Forest",
+        break;
 
-description:"A magical forest hides an ancient gate. Solve the puzzle before entering the mysterious maze.",
+    case "Medium":
 
-guide:"Welcome explorer! Every maze hides a secret. Think carefully before answering.",
+        stories=mediumStories;
 
-question:"I have keys but no locks. I have space but no rooms. You can enter but cannot leave. What am I?",
+        break;
 
-options:["Keyboard","House","Car","Forest"],
+    case "Extreme":
 
-answer:"Keyboard"
+        stories=extremeStories;
 
-},
-
-{
-
-title:"🏰 The Haunted Castle",
-
-description:"Ghosts guard the castle entrance. Only the smartest explorers can enter.",
-
-guide:"The spirits love riddles. Don't disappoint them!",
-
-question:"What has hands but cannot clap?",
-
-options:["Clock","Tree","Book","Robot"],
-
-answer:"Clock"
-
-},
-
-{
-
-title:"🏛 Ancient Temple",
-
-description:"The temple door opens only for those who understand shadows.",
-
-guide:"Light creates answers. Observe carefully.",
-
-question:"What follows you everywhere but can never touch you?",
-
-options:["Shadow","Cloud","Wind","Rain"],
-
-answer:"Shadow"
+        break;
 
 }
 
-];
+// ======================================
+// FIND CURRENT LEVEL
+// ======================================
 
-// ==========================================
-// SELECT STORY
-// ==========================================
+const currentStory =
+stories.find(
 
-const currentStory = stories[(level-1)%stories.length];
+story=>story.level===selectedLevel
 
-storyTitle.innerHTML = currentStory.title;
+);
 
-storyDescription.innerHTML = currentStory.description;
+// Safety Check
 
-guideMessage.innerHTML = currentStory.guide;
+if(!currentStory){
 
-question.innerHTML = currentStory.question;
+    alert("Story not found!");
 
-rewardCoins.innerHTML = (level*20)+" Coins";
+    window.location.href="levels.html";
 
-rewardXP.innerHTML = (level*10)+" XP";
+}
 
-rewardBonus.innerHTML =
+// ======================================
+// WORLD NAME
+// ======================================
 
-level%5===0
+function getWorld(level){
 
-?
+    if(level<=10)
+        return "🌲 Lost Forest";
 
-"Treasure Chest"
+    if(level<=20)
+        return "🌿 Jungle Expedition";
 
-:
+    if(level<=30)
+        return "❄ Ice Kingdom";
 
-"Bonus Hint";
+    if(level<=40)
+        return "🏜 Desert Temple";
 
-// ==========================================
+    if(level<=50)
+        return "🌋 Volcano Island";
+
+    if(level<=60)
+        return "☁ Sky Kingdom";
+
+    if(level<=70)
+        return "🌊 Ocean World";
+
+    if(level<=80)
+        return "🚀 Space Galaxy";
+
+    if(level<=90)
+        return "⏳ Time Dimension";
+
+    return "👑 Final Kingdom";
+
+}
+
+worldName.textContent =
+getWorld(selectedLevel);
+// ======================================
+// DISPLAY STORY
+// ======================================
+
+storyTitle.textContent =
+currentStory.title;
+
+storyDescription.textContent =
+currentStory.description;
+
+guideMessage.textContent =
+currentStory.guide;
+
+question.textContent =
+currentStory.question;
+
+
+// ======================================
 // LOAD OPTIONS
-// ==========================================
+// ======================================
 
-options.forEach((button,index)=>{
+let selectedAnswer = "";
 
-button.innerHTML=currentStory.options[index];
+optionButtons.forEach((button,index)=>{
 
-button.dataset.answer=currentStory.options[index];
+    button.textContent =
+    currentStory.options[index];
 
-});
+    button.dataset.answer =
+    currentStory.options[index];
 
-// ==========================================
-// ANSWER CHECK
-// ==========================================
-
-options.forEach(button=>{
-
-button.addEventListener("click",()=>{
-
-options.forEach(btn=>{
-
-btn.disabled=true;
+    button.classList.remove(
+        "correct",
+        "wrong",
+        "selected"
+    );
 
 });
 
-if(button.dataset.answer===currentStory.answer){
 
-button.classList.add("correct");
+// ======================================
+// LOAD REWARDS
+// ======================================
 
-resultMessage.innerHTML=
+rewardCoins.textContent =
+(currentStory.reward?.coins ?? 0) + " Coins";
 
-"✅ Correct! The gate has opened.";
+rewardXP.textContent =
+(currentStory.reward?.xp ?? 0) + " XP";
 
-continueBtn.disabled=false;
+rewardItem.textContent =
+currentStory.reward?.item ?? "Mystery Reward";
 
-}
 
-else{
+// ======================================
+// RESET BUTTONS
+// ======================================
 
-button.classList.add("wrong");
+submitBtn.disabled = true;
 
-resultMessage.innerHTML=
+startMaze.disabled = true;
 
-"❌ Wrong Answer! Try Again.";
+resultText.textContent = "";
 
-setTimeout(()=>{
+resultBox.style.display = "none";
 
-location.reload();
 
-},1500);
+// ======================================
+// OPTION SELECT
+// ======================================
 
-}
+optionButtons.forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        optionButtons.forEach(btn=>{
+
+            btn.classList.remove("selected");
+
+        });
+
+        button.classList.add("selected");
+
+        selectedAnswer =
+        button.dataset.answer;
+
+        submitBtn.disabled = false;
+
+    });
 
 });
 
+
+// ======================================
+// STORY PROGRESS BAR
+// ======================================
+
+const totalLevels = stories.length;
+
+const percent =
+Math.round(
+(selectedLevel/totalLevels)*100
+);
+
+progressFill.style.width =
+percent + "%";
+
+progressText.textContent =
+percent + "%";
+
+// ======================================
+// SUBMIT ANSWER
+// ======================================
+
+submitBtn.addEventListener("click",()=>{
+
+    submitBtn.disabled = true;
+
+    optionButtons.forEach(btn=>{
+
+        btn.disabled = true;
+
+    });
+
+    const correctAnswer = currentStory.answer;
+
+    if(selectedAnswer === correctAnswer){
+
+        resultBox.style.display = "block";
+
+        resultText.innerHTML =
+        "🎉 Correct Answer! The maze gate has opened.";
+
+        resultBox.classList.remove("wrong");
+        resultBox.classList.add("correct");
+
+        optionButtons.forEach(btn=>{
+
+            if(btn.dataset.answer===correctAnswer){
+
+                btn.classList.add("correct");
+
+            }
+
+        });
+
+        // Enable Start Button
+
+        startMaze.disabled = false;
+
+    }
+
+    else{
+
+        resultBox.style.display="block";
+
+        resultText.innerHTML =
+        "❌ Wrong Answer! Try Again.";
+
+        resultBox.classList.remove("correct");
+        resultBox.classList.add("wrong");
+
+        optionButtons.forEach(btn=>{
+
+            if(btn.dataset.answer===correctAnswer){
+
+                btn.classList.add("correct");
+
+            }
+
+            if(btn.dataset.answer===selectedAnswer){
+
+                btn.classList.add("wrong");
+
+            }
+
+        });
+
+        // Retry after 2 sec
+
+        setTimeout(()=>{
+
+            optionButtons.forEach(btn=>{
+
+                btn.disabled=false;
+
+                btn.classList.remove(
+                    "correct",
+                    "wrong",
+                    "selected"
+                );
+
+            });
+
+            submitBtn.disabled=true;
+
+            selectedAnswer="";
+
+            resultBox.style.display="none";
+
+        },2000);
+
+    }
+
 });
 
-// ==========================================
-// CONTINUE
-// ==========================================
 
-continueBtn.addEventListener("click",()=>{
+// ======================================
+// START MAZE
+// ======================================
 
-window.location.href="maze.html";
+startMaze.addEventListener("click",()=>{
+
+    // Save current level
+
+    localStorage.setItem(
+        "currentMazeLevel",
+        selectedLevel
+    );
+
+    // Save progress
+
+    let progress =
+    JSON.parse(
+    localStorage.getItem("progress")
+    ) || {};
+
+    progress.lastPlayed =
+    selectedLevel;
+
+    localStorage.setItem(
+        "progress",
+        JSON.stringify(progress)
+    );
+
+    window.location.href="maze.html";
 
 });
 
-// ==========================================
-// BACK
-// ==========================================
+
+// ======================================
+// SKIP STORY
+// ======================================
+
+skipStory.addEventListener("click",()=>{
+
+    window.location.href="maze.html";
+
+});
+
+
+// ======================================
+// BACK BUTTON
+// ======================================
 
 backBtn.addEventListener("click",()=>{
 
-window.location.href="levels.html";
+    window.location.href="levels.html";
 
 });
 
-// ==========================================
-// CURSOR GLOW
-// ==========================================
-
-document.addEventListener("mousemove",(e)=>{
-
-cursorGlow.style.left=e.clientX+"px";
-
-cursorGlow.style.top=e.clientY+"px";
-
-});
-
-// ==========================================
-// PARTICLES
-// ==========================================
+// ======================================
+// FLOATING PARTICLES
+// ======================================
 
 for(let i=0;i<120;i++){
 
-const particle=document.createElement("div");
+    const particle=document.createElement("div");
 
-particle.classList.add("particle");
+    particle.classList.add("particle");
 
-const size=Math.random()*4+2;
+    const size=Math.random()*4+2;
 
-particle.style.width=size+"px";
-particle.style.height=size+"px";
+    particle.style.width=size+"px";
+    particle.style.height=size+"px";
 
-particle.style.left=Math.random()*100+"%";
+    particle.style.left=Math.random()*100+"%";
 
-particle.style.animationDuration=
-(Math.random()*10+8)+"s";
+    particle.style.animationDuration=
+    (Math.random()*10+8)+"s";
 
-particle.style.animationDelay=
-Math.random()*5+"s";
+    particle.style.animationDelay=
+    Math.random()*5+"s";
 
-particle.style.opacity=Math.random();
+    particle.style.opacity=
+    Math.random();
 
-particles.appendChild(particle);
+    particleContainer.appendChild(particle);
 
 }
+
+
+// ======================================
+// CURSOR GLOW
+// ======================================
+
+document.addEventListener("mousemove",(e)=>{
+
+    if(cursorGlow){
+
+        cursorGlow.style.left=
+        e.clientX+"px";
+
+        cursorGlow.style.top=
+        e.clientY+"px";
+
+    }
+
+});
+
+
+// ======================================
+// PAGE ENTRY ANIMATION
+// ======================================
+
+window.addEventListener("load",()=>{
+
+    document.body.style.opacity="0";
+
+    setTimeout(()=>{
+
+        document.body.style.transition=
+        "opacity .8s ease";
+
+        document.body.style.opacity="1";
+
+    },100);
+
+});
+
+
+// ======================================
+// KEYBOARD SHORTCUTS
+// ======================================
+
+document.addEventListener("keydown",(e)=>{
+
+    // Enter = Submit
+
+    if(e.key==="Enter" && !submitBtn.disabled){
+
+        submitBtn.click();
+
+    }
+
+    // Escape = Back
+
+    if(e.key==="Escape"){
+
+        backBtn.click();
+
+    }
+
+});
+
+
+// ======================================
+// DEBUG
+// ======================================
+
+console.log("========== STORY ==========");
+
+console.log("Difficulty :",difficulty);
+
+console.log("Level :",selectedLevel);
+
+console.log("Story :",currentStory.title);
+
+console.log("Player :",player.name);
+
+console.log("===========================");

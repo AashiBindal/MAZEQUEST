@@ -80,8 +80,13 @@ switch(difficulty){
 // Progress
 // ================================
 
-let progress =
-JSON.parse(localStorage.getItem("progress"));
+// ================================
+// Progress (Difficulty Wise)
+// ================================
+
+const progressKey = difficulty + "_progress";
+
+let progress = JSON.parse(localStorage.getItem(progressKey));
 
 if(!progress){
 
@@ -89,11 +94,21 @@ if(!progress){
 
         currentLevel:1,
 
-        completed:0
+        completed:0,
+
+        coins:0
 
     };
 
+    localStorage.setItem(progressKey,JSON.stringify(progress));
+
 }
+
+currentLevel.innerHTML = progress.currentLevel;
+
+completedLevels.innerHTML = progress.completed;
+
+coins.innerHTML = progress.coins;
 
 currentLevel.innerHTML=progress.currentLevel;
 
@@ -105,7 +120,7 @@ completedLevels.innerHTML=progress.completed;
 // ================================
 
 const TOTAL_LEVELS = 100;
-
+levelsGrid.innerHTML="";
 for(let i=1;i<=TOTAL_LEVELS;i++){
 
     const card=document.createElement("div");
@@ -128,11 +143,13 @@ for(let i=1;i<=TOTAL_LEVELS;i++){
 
     // Completed
 
-    if(i<progress.currentLevel){
+    if(i < progress.currentLevel){
 
-        card.classList.add("completed");
+    card.classList.remove("locked");
 
-    }
+    card.classList.add("completed");
+
+}
 
     // Reward
 
@@ -186,17 +203,21 @@ for(let i=1;i<=TOTAL_LEVELS;i++){
 
     `;
 
+    card.setAttribute("data-level", i);
+
     // Click
 
     if(i<=progress.currentLevel){
 
         card.addEventListener("click",()=>{
 
-            localStorage.setItem("selectedLevel",i);
+    localStorage.setItem("selectedLevel",i);
 
-            window.location.href="story.html";
+    localStorage.setItem("difficulty",difficulty);
 
-        });
+    window.location.href="story.html";
+
+});
 
     }
 
