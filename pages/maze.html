@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Maze Quest | Maze</title>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="../css/global.css">
+
+    <link rel="stylesheet"
+          href="../css/maze.css">
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<!--==============================
+        BACKGROUND
+===============================-->
+
+<div class="background"></div>
+
+<div class="fog"></div>
+
+<div id="particles"></div>
+
+<div class="cursor-glow"></div>
+
+<!--==============================
+        HEADER
+===============================-->
+
+<header class="top-bar">
+
+<button id="backBtn"
+        class="back-btn">
+
+⬅ Back
+
+</button>
+
+<div class="level-box">
+
+<h2 id="levelNumber">
+
+LEVEL 1
+
+</h2>
+
+<p id="difficultyMode">
+
+Easy Mode
+
+</p>
+
+</div>
+
+<div class="player-box">
+
+<div class="avatar"
+     id="playerAvatar">
+
+🧙
+
+</div>
+
+<div>
+
+<h3 id="playerName">
+
+Player
+
+</h3>
+
+<p>
+
+Maze Explorer
+
+</p>
+
+</div>
+
+</div>
+
+</header>
+
+<!--==============================
+        PLAYER STATS
+===============================-->
+
+<section class="stats-container">
+
+<div class="stat-card">
+
+🪙
+
+<h3 id="coins">
+
+0
+
+</h3>
+
+<p>Coins</p>
+
+</div>
+
+<div class="stat-card">
+
+⭐
+
+<h3 id="xp">
+
+0
+
+</h3>
+
+<p>XP</p>
+
+</div>
+
+<div class="stat-card">
+
+❤️
+
+<h3 id="lives">
+
+3
+
+</h3>
+
+<p>Lives</p>
+
+</div>
+
+<div class="stat-card">
+
+💡
+
+<h3 id="hints">
+
+∞
+
+</h3>
+
+<p>Hints</p>
+
+</div>
+
+</section>
+<!--==============================
+        MAZE SECTION
+===============================-->
+
+<main class="maze-container">
+
+    <!-- Left Side -->
+
+    <section class="maze-panel">
+
+        <div class="maze-header">
+
+            <h2>
+
+                🧩 Maze Challenge
+
+            </h2>
+
+            <div class="maze-info">
+
+                <span id="mazeSize">
+
+                    10 × 10
+
+                </span>
+
+                <span id="stepCounter">
+
+                    Steps : 0
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- Maze Canvas -->
+
+        <div class="canvas-wrapper">
+
+            <canvas id="mazeCanvas"
+                    width="600"
+                    height="600">
+
+            </canvas>
+
+            <!-- Loading -->
+
+            <div id="loadingScreen"
+                 class="loading-screen">
+
+                <div class="loader"></div>
+
+                <h2>
+
+                    Generating Maze...
+
+                </h2>
+
+                <p>
+
+                    Please Wait...
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Right Side -->
+
+    <aside class="control-panel">
+
+        <div class="control-card">
+
+            <h2>
+
+                🎮 Controls
+
+            </h2>
+
+            <button id="hintBtn"
+                    class="game-btn">
+
+                💡 Use Hint
+
+            </button>
+
+            <button id="restartBtn"
+                    class="game-btn">
+
+                🔄 Restart
+
+            </button>
+
+            <button id="pauseBtn"
+                    class="game-btn">
+
+                ⏸ Pause
+
+            </button>
+
+        </div>
+
+        <div class="control-card">
+
+            <h2>
+
+                ⏱ Timer
+
+            </h2>
+
+            <div id="timer">
+
+                00 : 00
+
+            </div>
+
+        </div>
+
+        <div class="control-card">
+
+            <h2>
+
+                🏆 Mission
+
+            </h2>
+
+            <p>
+
+                Reach the Exit Gate without getting stuck.
+
+            </p>
+
+            <div class="legend">
+
+                <p>🟦 Player</p>
+
+                <p>🟩 Exit</p>
+
+                <p>⬛ Wall</p>
+
+                <p>⬜ Path</p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+</main>
+<!--==================================
+        LEVEL COMPLETE POPUP
+===================================-->
+
+<div id="winPopup" class="popup hidden">
+
+    <div class="popup-card">
+
+        <div class="popup-icon">
+
+            🏆
+
+        </div>
+
+        <h1>
+
+            LEVEL COMPLETE!
+
+        </h1>
+
+        <p id="winMessage">
+
+            Congratulations Explorer! You escaped the maze.
+
+        </p>
+
+        <!-- Rewards -->
+
+        <div class="reward-grid">
+
+            <div class="reward-box">
+
+                <span>🪙</span>
+
+                <h3 id="rewardCoins">
+
+                    +100
+
+                </h3>
+
+                <p>Coins</p>
+
+            </div>
+
+            <div class="reward-box">
+
+                <span>⭐</span>
+
+                <h3 id="rewardXP">
+
+                    +50
+
+                </h3>
+
+                <p>XP</p>
+
+            </div>
+
+            <div class="reward-box">
+
+                <span>💎</span>
+
+                <h3 id="rewardItem">
+
+                    Chest
+
+                </h3>
+
+                <p>Bonus</p>
+
+            </div>
+
+        </div>
+
+        <!-- Buttons -->
+
+        <div class="popup-buttons">
+
+            <button id="nextLevelBtn"
+                    class="popup-btn primary">
+
+                ▶ Next Level
+
+            </button>
+
+            <button id="playAgainBtn"
+                    class="popup-btn secondary">
+
+                🔄 Play Again
+
+            </button>
+
+            <button id="dashboardBtn"
+                    class="popup-btn danger">
+
+                🏠 Dashboard
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!--==================================
+        PAUSE POPUP
+===================================-->
+
+<div id="pausePopup"
+     class="popup hidden">
+
+    <div class="popup-card small">
+
+        <h2>
+
+            ⏸ Game Paused
+
+        </h2>
+
+        <p>
+
+            Your progress is safe.
+
+        </p>
+
+        <div class="popup-buttons">
+
+            <button id="resumeBtn"
+                    class="popup-btn primary">
+
+                ▶ Resume
+
+            </button>
+
+            <button id="restartGameBtn"
+                    class="popup-btn secondary">
+
+                🔄 Restart
+
+            </button>
+
+            <button id="exitGameBtn"
+                    class="popup-btn danger">
+
+                🚪 Exit
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!--==================================
+        GAME OVER POPUP
+===================================-->
+
+<div id="gameOverPopup"
+     class="popup hidden">
+
+    <div class="popup-card">
+
+        <div class="popup-icon">
+
+            💀
+
+        </div>
+
+        <h1>
+
+            GAME OVER
+
+        </h1>
+
+        <p>
+
+            Better luck next time!
+
+        </p>
+
+        <div class="popup-buttons">
+
+            <button id="retryBtn"
+                    class="popup-btn primary">
+
+                🔄 Retry Level
+
+            </button>
+
+            <button id="exitBtn"
+                    class="popup-btn danger">
+
+                🏠 Dashboard
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!--==================================
+        CELEBRATION
+===================================-->
+
+<div id="confettiContainer">
+
+</div>
+
+
+<div id="fireworksContainer">
+
+</div>
+
+
+<!--==================================
+        AUDIO
+===================================-->
+
+<audio id="moveSound"
+       preload="auto"></audio>
+
+<audio id="winSound"
+       preload="auto"></audio>
+
+<audio id="coinSound"
+       preload="auto"></audio>
+
+<audio id="clickSound"
+       preload="auto"></audio>
+
+<audio id="bgMusic"
+       loop
+       preload="auto"></audio>
+       <!--==================================
+        MOBILE CONTROLS
+===================================-->
+
+<section class="mobile-controls">
+
+    <button id="upBtn" class="control-btn">
+
+        ⬆
+
+    </button>
+
+    <div class="middle-controls">
+
+        <button id="leftBtn" class="control-btn">
+
+            ⬅
+
+        </button>
+
+        <button id="downBtn" class="control-btn">
+
+            ⬇
+
+        </button>
+
+        <button id="rightBtn" class="control-btn">
+
+            ➡
+
+        </button>
+
+    </div>
+
+</section>
+
+<!--==================================
+        KEYBOARD HELP
+===================================-->
+
+<section class="keyboard-help">
+
+    <h3>
+
+        ⌨ Controls
+
+    </h3>
+
+    <p>
+
+        Desktop :
+        Use <b>Arrow Keys</b> or <b>W A S D</b> to move.
+
+    </p>
+
+    <p>
+
+        Mobile :
+        Use the control buttons below.
+
+    </p>
+
+</section>
+
+<!--==================================
+        FOOTER
+===================================-->
+
+<footer>
+
+    <p>
+
+        Maze Quest © 2026
+
+    </p>
+
+    <p>
+
+        Escape every maze and become the Ultimate Maze Master!
+
+    </p>
+
+</footer>
+
+<!--==================================
+        DATA FILES
+===================================-->
+
+<script src="../data/easy.js"></script>
+
+<script src="../data/medium.js"></script>
+
+<script src="../data/extreme.js"></script>
+
+<!--==================================
+        MAIN JS
+===================================-->
+
+<script src="../js/maze.js"></script>
+
+</body>
+
+</html>

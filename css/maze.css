@@ -1,0 +1,1424 @@
+/*==========================================
+        MAZE QUEST - MAZE PAGE
+==========================================*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    width:100%;
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    font-family:'Poppins',sans-serif;
+
+    color:white;
+
+    background:#070B18;
+
+    position:relative;
+
+}
+
+/*==================================
+        BACKGROUND
+==================================*/
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle at top,#1A2458 0%,transparent 35%),
+    radial-gradient(circle at bottom,#0D1A3B 0%,transparent 30%),
+    linear-gradient(160deg,#050816,#090E1A,#111C38);
+
+    z-index:-5;
+
+}
+
+.background::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:700px;
+    height:700px;
+
+    background:#5B5FEF;
+
+    border-radius:50%;
+
+    filter:blur(180px);
+
+    opacity:.18;
+
+    top:-220px;
+    left:-220px;
+
+    animation:moveGlow1 15s infinite alternate;
+
+}
+
+.background::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:600px;
+    height:600px;
+
+    background:#9333EA;
+
+    border-radius:50%;
+
+    filter:blur(180px);
+
+    opacity:.18;
+
+    bottom:-220px;
+    right:-220px;
+
+    animation:moveGlow2 18s infinite alternate;
+
+}
+
+/*==================================
+            FOG
+==================================*/
+
+.fog{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    linear-gradient(
+        transparent,
+        rgba(255,255,255,.03),
+        transparent
+    );
+
+    animation:fogMove 18s linear infinite;
+
+    z-index:-4;
+
+}
+
+/*==================================
+        PARTICLES
+==================================*/
+
+#particles{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    z-index:-3;
+
+}
+
+.particle{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:white;
+
+    animation:float linear infinite;
+
+}
+
+/*==================================
+        CURSOR GLOW
+==================================*/
+
+.cursor-glow{
+
+    position:fixed;
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(91,95,239,.35),
+        transparent 70%
+    );
+
+    pointer-events:none;
+
+    transform:translate(-50%,-50%);
+
+    z-index:-1;
+
+}
+
+/*==================================
+        HEADER
+==================================*/
+
+.top-bar{
+
+    width:94%;
+
+    margin:25px auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.back-btn{
+
+    padding:14px 26px;
+
+    border:none;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    background:
+    linear-gradient(
+        135deg,
+        #5B5FEF,
+        #00D4FF
+    );
+
+    transition:.35s;
+
+}
+
+.back-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 0 25px #00D4FF;
+
+}
+
+.level-box{
+
+    text-align:center;
+
+}
+
+.level-box h2{
+
+    font-size:34px;
+
+    font-family:'Orbitron',sans-serif;
+
+    text-shadow:
+    0 0 15px #00D4FF;
+
+}
+
+.level-box p{
+
+    margin-top:8px;
+
+    color:#C9D6F2;
+
+    font-size:18px;
+
+}
+
+/*==================================
+        PLAYER
+==================================*/
+
+.player-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.avatar{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:30px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #00D4FF,
+        #5B5FEF
+    );
+
+    box-shadow:
+    0 0 20px #00D4FF;
+
+}
+
+.player-box h3{
+
+    font-size:22px;
+
+}
+
+.player-box p{
+
+    color:#C9D6F2;
+
+    font-size:15px;
+
+}
+
+/*==================================
+        STATS
+==================================*/
+
+.stats-container{
+
+    width:94%;
+
+    margin:30px auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+
+}
+
+.stat-card{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(16px);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    border-radius:20px;
+
+    padding:22px;
+
+    text-align:center;
+
+    transition:.35s;
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 0 25px rgba(0,212,255,.35);
+
+}
+
+.stat-card h3{
+
+    margin:12px 0;
+
+    font-size:30px;
+
+    font-family:'Orbitron';
+
+}
+
+.stat-card p{
+
+    color:#C9D6F2;
+
+    font-size:15px;
+
+}
+
+/*==================================
+        MAIN MAZE LAYOUT
+==================================*/
+
+.maze-container{
+
+    width:94%;
+
+    max-width:1600px;
+
+    margin:40px auto;
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:30px;
+
+    align-items:start;
+
+}
+
+/*==================================
+        MAZE PANEL
+==================================*/
+
+.maze-panel{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:24px;
+
+    padding:30px;
+
+    transition:.35s;
+
+}
+
+.maze-panel:hover{
+
+    box-shadow:
+
+    0 0 35px rgba(0,212,255,.30);
+
+}
+
+.maze-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.maze-header h2{
+
+    font-size:34px;
+
+    font-family:'Orbitron',sans-serif;
+
+    color:#00D4FF;
+
+}
+
+.maze-info{
+
+    display:flex;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.maze-info span{
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:12px;
+
+    padding:10px 18px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+/*==================================
+        CANVAS
+==================================*/
+
+.canvas-wrapper{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+
+}
+
+#mazeCanvas{
+
+    width:100%;
+
+    max-width:650px;
+
+    aspect-ratio:1;
+
+    background:#0A1228;
+
+    border:4px solid #00D4FF;
+
+    border-radius:20px;
+
+    box-shadow:
+
+    0 0 35px rgba(0,212,255,.35);
+
+}
+
+/*==================================
+        LOADING
+==================================*/
+
+.loading-screen{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:20px;
+
+    background:rgba(5,8,22,.92);
+
+    border-radius:20px;
+
+}
+
+.loader{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    border:6px solid rgba(255,255,255,.15);
+
+    border-top:6px solid #00D4FF;
+
+    animation:spin 1s linear infinite;
+
+}
+
+.loading-screen h2{
+
+    font-family:'Orbitron';
+
+    color:#00D4FF;
+
+}
+
+.loading-screen p{
+
+    color:#C9D6F2;
+
+}
+
+/*==================================
+        CONTROL PANEL
+==================================*/
+
+.control-panel{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:25px;
+
+}
+
+.control-card{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:24px;
+
+    padding:25px;
+
+    transition:.35s;
+
+}
+
+.control-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+
+    0 0 25px rgba(0,212,255,.25);
+
+}
+
+.control-card h2{
+
+    font-size:28px;
+
+    font-family:'Orbitron';
+
+    margin-bottom:20px;
+
+    color:#00D4FF;
+
+}
+
+/*==================================
+        GAME BUTTONS
+==================================*/
+
+.game-btn{
+
+    width:100%;
+
+    margin-bottom:15px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    background:
+
+    linear-gradient(
+
+    135deg,
+
+    #5B5FEF,
+
+    #00D4FF
+
+    );
+
+    transition:.35s;
+
+}
+
+.game-btn:last-child{
+
+    margin-bottom:0;
+
+}
+
+.game-btn:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+
+    0 0 25px #00D4FF;
+
+}
+
+/*==================================
+        TIMER
+==================================*/
+
+#timer{
+
+    font-size:40px;
+
+    font-family:'Orbitron';
+
+    text-align:center;
+
+    color:#FFD54A;
+
+    text-shadow:
+
+    0 0 20px rgba(255,213,74,.45);
+
+}
+
+/*==================================
+        LEGEND
+==================================*/
+
+.legend{
+
+    margin-top:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+.legend p{
+
+    font-size:16px;
+
+    color:#D9E5FF;
+
+}
+
+/*==================================
+        POPUP
+==================================*/
+
+.popup{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.75);
+
+    backdrop-filter:blur(10px);
+
+    z-index:9999;
+
+    opacity:1;
+
+    transition:.35s;
+
+}
+
+.popup.hidden{
+
+    opacity:0;
+
+    visibility:hidden;
+
+}
+
+.popup-card{
+
+    width:90%;
+
+    max-width:650px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    border:2px solid rgba(255,255,255,.12);
+
+    border-radius:28px;
+
+    padding:40px;
+
+    text-align:center;
+
+    box-shadow:
+
+    0 0 50px rgba(0,212,255,.35);
+
+    animation:popupScale .45s ease;
+
+}
+
+.popup-card.small{
+
+    max-width:500px;
+
+}
+
+.popup-icon{
+
+    font-size:80px;
+
+    margin-bottom:20px;
+
+}
+
+.popup-card h1{
+
+    font-size:42px;
+
+    font-family:'Orbitron';
+
+    color:#FFD54A;
+
+    margin-bottom:15px;
+
+}
+
+.popup-card h2{
+
+    font-size:34px;
+
+    font-family:'Orbitron';
+
+    color:#00D4FF;
+
+    margin-bottom:15px;
+
+}
+
+.popup-card p{
+
+    font-size:18px;
+
+    color:#D9E5FF;
+
+    margin-bottom:25px;
+
+}
+
+/*==================================
+        REWARD GRID
+==================================*/
+
+.reward-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:20px;
+
+    margin:30px 0;
+
+}
+
+.reward-box{
+
+    background:rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    transition:.35s;
+
+}
+
+.reward-box:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+
+    0 0 20px rgba(255,213,74,.35);
+
+}
+
+.reward-box span{
+
+    font-size:42px;
+
+}
+
+.reward-box h3{
+
+    margin:15px 0 8px;
+
+    font-size:28px;
+
+    color:#FFD54A;
+
+    font-family:'Orbitron';
+
+}
+
+.reward-box p{
+
+    margin:0;
+
+    font-size:15px;
+
+    color:#C9D6F2;
+
+}
+
+/*==================================
+        POPUP BUTTONS
+==================================*/
+
+.popup-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+
+    margin-top:25px;
+
+}
+
+.popup-btn{
+
+    min-width:180px;
+
+    padding:16px 24px;
+
+    border:none;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    transition:.35s;
+
+}
+
+.popup-btn.primary{
+
+    background:linear-gradient(
+        135deg,
+        #00D4FF,
+        #5B5FEF
+    );
+
+}
+
+.popup-btn.secondary{
+
+    background:linear-gradient(
+        135deg,
+        #00C853,
+        #00E676
+    );
+
+}
+
+.popup-btn.danger{
+
+    background:linear-gradient(
+        135deg,
+        #FF4D6D,
+        #D50000
+    );
+
+}
+
+.popup-btn:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+
+    0 0 25px rgba(255,255,255,.35);
+
+}
+
+/*==================================
+        CONFETTI
+==================================*/
+
+#confettiContainer{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+    z-index:9000;
+
+}
+
+/*==================================
+        FIREWORKS
+==================================*/
+
+#fireworksContainer{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+    z-index:9001;
+
+}
+
+/*==================================
+        WIN EFFECT
+==================================*/
+
+.win-glow{
+
+    animation:winGlow 1.2s infinite alternate;
+
+}
+/*==================================
+        MOBILE CONTROLS
+==================================*/
+
+.mobile-controls{
+
+    display:none;
+
+    width:100%;
+
+    margin:40px auto;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.middle-controls{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.control-btn{
+
+    width:75px;
+
+    height:75px;
+
+    border:none;
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    font-size:30px;
+
+    color:white;
+
+    background:linear-gradient(
+        135deg,
+        #5B5FEF,
+        #00D4FF
+    );
+
+    transition:.3s;
+
+}
+
+.control-btn:hover{
+
+    transform:scale(1.08);
+
+    box-shadow:
+
+    0 0 25px #00D4FF;
+
+}
+
+/*==================================
+        KEYBOARD HELP
+==================================*/
+
+.keyboard-help{
+
+    width:94%;
+
+    max-width:1000px;
+
+    margin:50px auto;
+
+    padding:25px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:20px;
+
+}
+
+.keyboard-help h3{
+
+    font-size:28px;
+
+    margin-bottom:15px;
+
+    font-family:'Orbitron';
+
+    color:#00D4FF;
+
+}
+
+.keyboard-help p{
+
+    margin:10px 0;
+
+    color:#D9E5FF;
+
+    font-size:16px;
+
+}
+
+/*==================================
+        FOOTER
+==================================*/
+
+footer{
+
+    margin:50px 0 30px;
+
+    text-align:center;
+
+    color:#C9D6F2;
+
+    font-size:15px;
+
+    line-height:1.8;
+
+}
+
+/*==================================
+        ANIMATIONS
+==================================*/
+
+@keyframes spin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+@keyframes popupScale{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.75);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
+
+@keyframes winGlow{
+
+    from{
+
+        box-shadow:
+
+        0 0 20px #FFD54A;
+
+    }
+
+    to{
+
+        box-shadow:
+
+        0 0 45px #FFD54A,
+
+        0 0 90px rgba(255,213,74,.45);
+
+    }
+
+}
+
+@keyframes moveGlow1{
+
+    from{
+
+        transform:translate(0,0);
+
+    }
+
+    to{
+
+        transform:translate(120px,80px);
+
+    }
+
+}
+
+@keyframes moveGlow2{
+
+    from{
+
+        transform:translate(0,0);
+
+    }
+
+    to{
+
+        transform:translate(-120px,-80px);
+
+    }
+
+}
+
+@keyframes fogMove{
+
+    from{
+
+        transform:translateX(-10%);
+
+    }
+
+    to{
+
+        transform:translateX(10%);
+
+    }
+
+}
+
+@keyframes float{
+
+    0%{
+
+        transform:translateY(110vh);
+
+        opacity:0;
+
+    }
+
+    20%{
+
+        opacity:1;
+
+    }
+
+    80%{
+
+        opacity:.8;
+
+    }
+
+    100%{
+
+        transform:translateY(-120vh);
+
+        opacity:0;
+
+    }
+
+}
+
+/*==================================
+        RESPONSIVE
+==================================*/
+
+@media(max-width:1100px){
+
+    .maze-container{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .top-bar{
+
+        flex-direction:column;
+
+        gap:20px;
+
+    }
+
+    .stats-container{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .maze-header{
+
+        flex-direction:column;
+
+        gap:15px;
+
+        text-align:center;
+
+    }
+
+    .reward-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .popup-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .popup-btn{
+
+        width:100%;
+
+    }
+
+    .mobile-controls{
+
+        display:flex;
+
+    }
+
+    .keyboard-help{
+
+        font-size:15px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .stats-container{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .maze-panel,
+
+    .control-card{
+
+        padding:18px;
+
+    }
+
+    #mazeCanvas{
+
+        max-width:100%;
+
+    }
+
+    .popup-card{
+
+        padding:25px;
+
+    }
+
+    .popup-card h1{
+
+        font-size:30px;
+
+    }
+
+    .popup-card h2{
+
+        font-size:26px;
+
+    }
+
+    .popup-icon{
+
+        font-size:60px;
+
+    }
+
+    .control-btn{
+
+        width:65px;
+
+        height:65px;
+
+        font-size:26px;
+
+    }
+
+}
