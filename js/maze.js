@@ -1213,6 +1213,9 @@ function completeLevel() {
 
     gameWon = true;
 
+    saveProgress();
+    // unlockNextLevel();
+    
     // Stop Timer
 
     if (typeof timerInterval !== "undefined") {
@@ -1252,16 +1255,17 @@ function completeLevel() {
         (player.xp || 0) + rewardXP;
 
     localStorage.setItem(
-
+         
         "player",
 
         JSON.stringify(player)
 
     );
+    refreshPlayerStats();
 
     // Update Popup
 
-    document.getElementById("  rewardCoins").innerHTML =
+    document.getElementById("rewardCoins").innerHTML =
         rewardCoins;
 
     document.getElementById("rewardXP").innerHTML =
@@ -1611,6 +1615,8 @@ function drawPlayer() {
 
     ctx.fill();
 
+    console.log("drawPlayer called");
+
 }
 
 // ==========================================
@@ -1619,21 +1625,23 @@ function drawPlayer() {
 
 function movePlayer(direction) {
 
+    
+
     if (gamePaused || gameWon) {
 
         return;
 
     }
-    if(!maze.lenth){
-        return;
-    }
+    // if(!maze.lenth){
+    //     return;
+    // }
     let moved = false;
 
     let current =
         maze[playerPos.row][playerPos.col];
-        if(!current){
-            return;
-        }
+        // if(!current){
+        //     return;
+        // }
 
     switch (direction) {
 
@@ -1692,6 +1700,8 @@ function movePlayer(direction) {
 
     checkWin();
 
+    console.log("drawPlayer called");
+
 }
 // ==========================================
 // Keyboard Controls
@@ -1699,48 +1709,33 @@ function movePlayer(direction) {
 
 document.addEventListener("keydown", (e) => {
 
-    switch (e.key) {
+    console.log("Key pressed:", e.key);
+
+    switch(e.key){
 
         case "ArrowUp":
-
         case "w":
-
         case "W":
-
             movePlayer("up");
-
             break;
 
         case "ArrowDown":
-
         case "s":
-
         case "S":
-
             movePlayer("down");
-
             break;
 
         case "ArrowLeft":
-
         case "a":
-
         case "A":
-
             movePlayer("left");
-
             break;
 
         case "ArrowRight":
-
         case "d":
-
         case "D":
-
             movePlayer("right");
-
             break;
-
     }
 
 });

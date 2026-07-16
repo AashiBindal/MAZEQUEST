@@ -563,7 +563,11 @@ body{
     color:#C9D6F2;
 
 }
+.loading-screen.hidden{
 
+    display:none;
+
+}
 /*==================================
         CONTROL PANEL
 ==================================*/
