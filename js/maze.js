@@ -32,31 +32,31 @@ const pauseBtn = document.getElementById("pauseBtn");
 const backBtn = document.getElementById("backBtn");
 
 const loadingScreen =
-document.getElementById("loadingScreen");
+    document.getElementById("loadingScreen");
 
 const winPopup =
-document.getElementById("winPopup");
+    document.getElementById("winPopup");
 
 const pausePopup =
-document.getElementById("pausePopup");
+    document.getElementById("pausePopup");
 
 const gameOverPopup =
-document.getElementById("gameOverPopup");
+    document.getElementById("gameOverPopup");
 
 const nextLevelBtn =
-document.getElementById("nextLevelBtn");
+    document.getElementById("nextLevelBtn");
 
 const playAgainBtn =
-document.getElementById("playAgainBtn");
+    document.getElementById("playAgainBtn");
 
 const dashboardBtn =
-document.getElementById("dashboardBtn");
+    document.getElementById("dashboardBtn");
 
 const resumeBtn =
-document.getElementById("resumeBtn");
+    document.getElementById("resumeBtn");
 
 const retryBtn =
-document.getElementById("retryBtn");
+    document.getElementById("retryBtn");
 
 
 // ==========================================
@@ -64,25 +64,25 @@ document.getElementById("retryBtn");
 // ==========================================
 
 let player =
-JSON.parse(localStorage.getItem("player"));
+    JSON.parse(localStorage.getItem("player"));
 
-if(!player){
+if (!player) {
 
-    window.location.href="login.html";
+    window.location.href = "login.html";
 
 }
 
 playerName.textContent =
-player.name || "Player";
+    player.name || "Player";
 
 playerAvatar.textContent =
-player.avatar || "🧙";
+    player.avatar || "🧙";
 
 coinsText.textContent =
-player.coins || 0;
+    player.coins || 0;
 
 xpText.textContent =
-player.xp || 0;
+    player.xp || 0;
 
 
 // ==========================================
@@ -90,18 +90,18 @@ player.xp || 0;
 // ==========================================
 
 const difficulty =
-localStorage.getItem("difficulty") || "Easy";
+    localStorage.getItem("difficulty") || "Easy";
 
 const level =
-Number(
-localStorage.getItem("selectedLevel")
-) || 1;
+    Number(
+        localStorage.getItem("selectedLevel")
+    ) || 1;
 
 levelNumber.innerHTML =
-"LEVEL " + level;
+    "LEVEL " + level;
 
 difficultyMode.innerHTML =
-difficulty.toUpperCase()+" MODE";
+    difficulty.toUpperCase() + " MODE";
 
 
 // ==========================================
@@ -114,7 +114,7 @@ let TOTAL_HINTS = Infinity;
 
 let TIME_LIMIT = 0;
 
-switch(difficulty){
+switch (difficulty) {
 
     case "Easy":
 
@@ -149,14 +149,14 @@ switch(difficulty){
 }
 
 mazeSizeText.innerHTML =
-GRID_SIZE+" × "+GRID_SIZE;
+    GRID_SIZE + " × " + GRID_SIZE;
 
 hintsText.innerHTML =
-TOTAL_HINTS===Infinity
-?
-"∞"
-:
-TOTAL_HINTS;
+    TOTAL_HINTS === Infinity
+        ?
+        "∞"
+        :
+        TOTAL_HINTS;
 
 
 // ==========================================
@@ -167,33 +167,33 @@ canvas.width = 700;
 canvas.height = 700;
 
 const CELL_SIZE =
-canvas.width / GRID_SIZE;
+    canvas.width / GRID_SIZE;
 
 
 // ==========================================
 // Game Variables
 // ==========================================
 
-let maze=[];
+let maze = [];
 
-let playerX=0;
-let playerY=0;
+// let playerX = 0;
+// let playerY = 0;
 
-let exitX=
-GRID_SIZE-1;
+// let exitX =
+//     GRID_SIZE - 1;
 
-let exitY=
-GRID_SIZE-1;
+// let exitY =
+//     GRID_SIZE - 1;
 
-let steps=0;
+// let steps = 0;
 
-let timer=TIME_LIMIT;
+let timer = TIME_LIMIT;
 
-let gamePaused=false;
+let gamePaused = false;
 
-let gameWon=false;
+let gameWon = false;
 
-let gameStarted=false;
+let gameStarted = false;
 /*==========================================
         MAZE ENGINE
         PART-2
@@ -203,25 +203,25 @@ let gameStarted=false;
 // Cell Class
 // ==========================================
 
-class Cell{
+class Cell {
 
-    constructor(row,col){
+    constructor(row, col) {
 
-        this.row=row;
+        this.row = row;
 
-        this.col=col;
+        this.col = col;
 
-        this.visited=false;
+        this.visited = false;
 
-        this.walls={
+        this.walls = {
 
-            top:true,
+            top: true,
 
-            right:true,
+            right: true,
 
-            bottom:true,
+            bottom: true,
 
-            left:true
+            left: true
 
         };
 
@@ -233,19 +233,19 @@ class Cell{
 // Create Empty Grid
 // ==========================================
 
-function createGrid(){
+function createGrid() {
 
-    maze=[];
+    maze = [];
 
-    for(let r=0;r<GRID_SIZE;r++){
+    for (let r = 0; r < GRID_SIZE; r++) {
 
-        let row=[];
+        let row = [];
 
-        for(let c=0;c<GRID_SIZE;c++){
+        for (let c = 0; c < GRID_SIZE; c++) {
 
             row.push(
 
-                new Cell(r,c)
+                new Cell(r, c)
 
             );
 
@@ -261,19 +261,19 @@ function createGrid(){
 // Get Cell
 // ==========================================
 
-function getCell(r,c){
+function getCell(r, c) {
 
-    if(
+    if (
 
-        r<0 ||
+        r < 0 ||
 
-        c<0 ||
+        c < 0 ||
 
-        r>=GRID_SIZE ||
+        r >= GRID_SIZE ||
 
-        c>=GRID_SIZE
+        c >= GRID_SIZE
 
-    ){
+    ) {
 
         return null;
 
@@ -288,37 +288,37 @@ function getCell(r,c){
 // (Same level = Same maze)
 // ==========================================
 
-let seed=0;
+let seed = 0;
 
-function setSeed(level){
+function setSeed(level) {
 
-    if(difficulty==="Easy"){
+    if (difficulty === "Easy") {
 
-        seed=1000+level;
-
-    }
-
-    else if(difficulty==="Medium"){
-
-        seed=2000+level;
+        seed = 1000 + level;
 
     }
 
-    else{
+    else if (difficulty === "Medium") {
 
-        seed=3000+level;
+        seed = 2000 + level;
+
+    }
+
+    else {
+
+        seed = 3000 + level;
 
     }
 
 }
 
-function random(){
+function random() {
 
-    seed=
+    seed =
 
-    (seed*9301+49297)%233280;
+        (seed * 9301 + 49297) % 233280;
 
-    return seed/233280;
+    return seed / 233280;
 
 }
 
@@ -326,25 +326,25 @@ function random(){
 // Shuffle Array
 // ==========================================
 
-function shuffle(array){
+function shuffle(array) {
 
-    for(
+    for (
 
-        let i=array.length-1;
+        let i = array.length - 1;
 
-        i>0;
+        i > 0;
 
         i--
 
-    ){
+    ) {
 
-        const j=
+        const j =
 
-        Math.floor(
+            Math.floor(
 
-            random()*(i+1)
+                random() * (i + 1)
 
-        );
+            );
 
         [
 
@@ -354,15 +354,15 @@ function shuffle(array){
 
         ]
 
-        =
+            =
 
-        [
+            [
 
-            array[j],
+                array[j],
 
-            array[i]
+                array[i]
 
-        ];
+            ];
 
     }
 
@@ -372,41 +372,41 @@ function shuffle(array){
 // Remove Wall
 // ==========================================
 
-function removeWalls(a,b){
+function removeWalls(a, b) {
 
-    let dx=b.col-a.col;
+    let dx = b.col - a.col;
 
-    let dy=b.row-a.row;
+    let dy = b.row - a.row;
 
-    if(dx===1){
+    if (dx === 1) {
 
-        a.walls.right=false;
+        a.walls.right = false;
 
-        b.walls.left=false;
-
-    }
-
-    else if(dx===-1){
-
-        a.walls.left=false;
-
-        b.walls.right=false;
+        b.walls.left = false;
 
     }
 
-    else if(dy===1){
+    else if (dx === -1) {
 
-        a.walls.bottom=false;
+        a.walls.left = false;
 
-        b.walls.top=false;
+        b.walls.right = false;
 
     }
 
-    else if(dy===-1){
+    else if (dy === 1) {
 
-        a.walls.top=false;
+        a.walls.bottom = false;
 
-        b.walls.bottom=false;
+        b.walls.top = false;
+
+    }
+
+    else if (dy === -1) {
+
+        a.walls.top = false;
+
+        b.walls.bottom = false;
 
     }
 
@@ -420,41 +420,41 @@ function removeWalls(a,b){
 // Get Unvisited Neighbours
 // ==========================================
 
-function getNeighbours(cell){
+function getNeighbours(cell) {
 
-    const neighbours=[];
+    const neighbours = [];
 
-    const top=
-    getCell(cell.row-1,cell.col);
+    const top =
+        getCell(cell.row - 1, cell.col);
 
-    const right=
-    getCell(cell.row,cell.col+1);
+    const right =
+        getCell(cell.row, cell.col + 1);
 
-    const bottom=
-    getCell(cell.row+1,cell.col);
+    const bottom =
+        getCell(cell.row + 1, cell.col);
 
-    const left=
-    getCell(cell.row,cell.col-1);
+    const left =
+        getCell(cell.row, cell.col - 1);
 
-    if(top && !top.visited){
+    if (top && !top.visited) {
 
         neighbours.push(top);
 
     }
 
-    if(right && !right.visited){
+    if (right && !right.visited) {
 
         neighbours.push(right);
 
     }
 
-    if(bottom && !bottom.visited){
+    if (bottom && !bottom.visited) {
 
         neighbours.push(bottom);
 
     }
 
-    if(left && !left.visited){
+    if (left && !left.visited) {
 
         neighbours.push(left);
 
@@ -470,18 +470,18 @@ function getNeighbours(cell){
 // Recursive Backtracking
 // ==========================================
 
-function carveMaze(current){
+function carveMaze(current) {
 
-    current.visited=true;
+    current.visited = true;
 
-    const neighbours=
-    getNeighbours(current);
+    const neighbours =
+        getNeighbours(current);
 
-    for(const next of neighbours){
+    for (const next of neighbours) {
 
-        if(!next.visited){
+        if (!next.visited) {
 
-            removeWalls(current,next);
+            removeWalls(current, next);
 
             carveMaze(next);
 
@@ -495,7 +495,7 @@ function carveMaze(current){
 // Generate Maze
 // ==========================================
 
-function generateMaze(){
+function generateMaze() {
 
     createGrid();
 
@@ -509,13 +509,13 @@ function generateMaze(){
 
     // Entrance
 
-    maze[0][0].walls.left=false;
+    maze[0][0].walls.left = false;
 
     // Exit
 
-    maze[GRID_SIZE-1][GRID_SIZE-1]
+    maze[GRID_SIZE - 1][GRID_SIZE - 1]
 
-    .walls.right=false;
+        .walls.right = false;
 
 }
 /*==========================================
@@ -527,7 +527,7 @@ function generateMaze(){
 // Draw Complete Maze
 // ==========================================
 
-function drawMaze(){
+function drawMaze() {
 
     ctx.clearRect(
 
@@ -541,33 +541,33 @@ function drawMaze(){
 
     );
 
-    ctx.lineWidth=3;
+    ctx.lineWidth = 3;
 
-    ctx.lineCap="round";
+    ctx.lineCap = "round";
 
-    ctx.strokeStyle="#00D4FF";
+    ctx.strokeStyle = "#00D4FF";
 
-    for(let r=0;r<GRID_SIZE;r++){
+    for (let r = 0; r < GRID_SIZE; r++) {
 
-        for(let c=0;c<GRID_SIZE;c++){
+        for (let c = 0; c < GRID_SIZE; c++) {
 
-            const cell=maze[r][c];
+            const cell = maze[r][c];
 
-            const x=c*CELL_SIZE;
+            const x = c * CELL_SIZE;
 
-            const y=r*CELL_SIZE;
+            const y = r * CELL_SIZE;
 
             // Top Wall
 
-            if(cell.walls.top){
+            if (cell.walls.top) {
 
                 ctx.beginPath();
 
-                ctx.moveTo(x,y);
+                ctx.moveTo(x, y);
 
                 ctx.lineTo(
 
-                    x+CELL_SIZE,
+                    x + CELL_SIZE,
 
                     y
 
@@ -579,13 +579,13 @@ function drawMaze(){
 
             // Right Wall
 
-            if(cell.walls.right){
+            if (cell.walls.right) {
 
                 ctx.beginPath();
 
                 ctx.moveTo(
 
-                    x+CELL_SIZE,
+                    x + CELL_SIZE,
 
                     y
 
@@ -593,9 +593,9 @@ function drawMaze(){
 
                 ctx.lineTo(
 
-                    x+CELL_SIZE,
+                    x + CELL_SIZE,
 
-                    y+CELL_SIZE
+                    y + CELL_SIZE
 
                 );
 
@@ -605,7 +605,7 @@ function drawMaze(){
 
             // Bottom Wall
 
-            if(cell.walls.bottom){
+            if (cell.walls.bottom) {
 
                 ctx.beginPath();
 
@@ -613,15 +613,15 @@ function drawMaze(){
 
                     x,
 
-                    y+CELL_SIZE
+                    y + CELL_SIZE
 
                 );
 
                 ctx.lineTo(
 
-                    x+CELL_SIZE,
+                    x + CELL_SIZE,
 
-                    y+CELL_SIZE
+                    y + CELL_SIZE
 
                 );
 
@@ -631,7 +631,7 @@ function drawMaze(){
 
             // Left Wall
 
-            if(cell.walls.left){
+            if (cell.walls.left) {
 
                 ctx.beginPath();
 
@@ -647,7 +647,7 @@ function drawMaze(){
 
                     x,
 
-                    y+CELL_SIZE
+                    y + CELL_SIZE
 
                 );
 
@@ -668,9 +668,9 @@ function drawMaze(){
         START CELL
 ==========================================*/
 
-function drawStart(){
+function drawStart() {
 
-    ctx.fillStyle="#00FF88";
+    ctx.fillStyle = "#00FF88";
 
     ctx.fillRect(
 
@@ -678,9 +678,9 @@ function drawStart(){
 
         4,
 
-        CELL_SIZE-8,
+        CELL_SIZE - 8,
 
-        CELL_SIZE-8
+        CELL_SIZE - 8
 
     );
 
@@ -689,35 +689,35 @@ function drawStart(){
         EXIT CELL
 ==========================================*/
 
-function drawExit(){
+function drawExit() {
 
-    const x=
+    const x =
 
-    (GRID_SIZE-1)
+        (GRID_SIZE - 1)
 
-    *
+        *
 
-    CELL_SIZE;
+        CELL_SIZE;
 
-    const y=
+    const y =
 
-    (GRID_SIZE-1)
+        (GRID_SIZE - 1)
 
-    *
+        *
 
-    CELL_SIZE;
+        CELL_SIZE;
 
-    ctx.fillStyle="#FF4D6D";
+    ctx.fillStyle = "#FF4D6D";
 
     ctx.fillRect(
 
-        x+4,
+        x + 4,
 
-        y+4,
+        y + 4,
 
-        CELL_SIZE-8,
+        CELL_SIZE - 8,
 
-        CELL_SIZE-8
+        CELL_SIZE - 8
 
     );
 
@@ -726,7 +726,7 @@ function drawExit(){
         INITIALIZE MAZE
 ==========================================*/
 
-function initMaze(){
+function initMaze() {
 
     playerPos.row = 0;
 
@@ -734,23 +734,24 @@ function initMaze(){
 
     totalSteps = 0;
 
-    steps = 0;
+    // steps = 0;
 
     stepCounter.innerHTML = "Steps : 0";
 
     generateMaze();
+    console.log("Maze:", maze);
 
     renderMaze();
 
     drawPlayer();
 
-    if(loadingScreen){
+    if (loadingScreen) {
 
         loadingScreen.classList.add("hidden");
 
     }
 
-    if(TIME_LIMIT > 0){
+    if (TIME_LIMIT > 0) {
 
         startTimer();
 
@@ -761,7 +762,7 @@ function initMaze(){
         REFRESH
 ==========================================*/
 
-function refreshMaze(){
+function refreshMaze() {
 
     renderMaze();
 
@@ -775,7 +776,7 @@ function refreshMaze(){
 // Draw Start Portal
 // ==========================================
 
-function drawStartPortal(){
+function drawStartPortal() {
 
     const x = CELL_SIZE / 2;
 
@@ -790,9 +791,9 @@ function drawStartPortal(){
         CELL_SIZE / 2
     );
 
-    gradient.addColorStop(0,"#00FF88");
-    gradient.addColorStop(.6,"rgba(0,255,136,.45)");
-    gradient.addColorStop(1,"rgba(0,255,136,0)");
+    gradient.addColorStop(0, "#00FF88");
+    gradient.addColorStop(.6, "rgba(0,255,136,.45)");
+    gradient.addColorStop(1, "rgba(0,255,136,0)");
 
     ctx.beginPath();
 
@@ -804,11 +805,11 @@ function drawStartPortal(){
 
         y,
 
-        CELL_SIZE/2,
+        CELL_SIZE / 2,
 
         0,
 
-        Math.PI*2
+        Math.PI * 2
 
     );
 
@@ -820,15 +821,15 @@ function drawStartPortal(){
 // Draw Exit Portal
 // ==========================================
 
-function drawExitPortal(){
+function drawExitPortal() {
 
     const x =
-    (GRID_SIZE-1)*CELL_SIZE+
-    CELL_SIZE/2;
+        (GRID_SIZE - 1) * CELL_SIZE +
+        CELL_SIZE / 2;
 
     const y =
-    (GRID_SIZE-1)*CELL_SIZE+
-    CELL_SIZE/2;
+        (GRID_SIZE - 1) * CELL_SIZE +
+        CELL_SIZE / 2;
 
     const gradient = ctx.createRadialGradient(
         x,
@@ -836,12 +837,12 @@ function drawExitPortal(){
         5,
         x,
         y,
-        CELL_SIZE/2
+        CELL_SIZE / 2
     );
 
-    gradient.addColorStop(0,"#FF4D6D");
-    gradient.addColorStop(.6,"rgba(255,77,109,.45)");
-    gradient.addColorStop(1,"rgba(255,77,109,0)");
+    gradient.addColorStop(0, "#FF4D6D");
+    gradient.addColorStop(.6, "rgba(255,77,109,.45)");
+    gradient.addColorStop(1, "rgba(255,77,109,0)");
 
     ctx.beginPath();
 
@@ -853,11 +854,11 @@ function drawExitPortal(){
 
         y,
 
-        CELL_SIZE/2,
+        CELL_SIZE / 2,
 
         0,
 
-        Math.PI*2
+        Math.PI * 2
 
     );
 
@@ -868,22 +869,22 @@ function drawExitPortal(){
 // Draw Finish Flag
 // ==========================================
 
-function drawFinishFlag(){
+function drawFinishFlag() {
 
     const x =
-    (GRID_SIZE-1)*CELL_SIZE+
-    CELL_SIZE/2;
+        (GRID_SIZE - 1) * CELL_SIZE +
+        CELL_SIZE / 2;
 
     const y =
-    (GRID_SIZE-1)*CELL_SIZE+
-    CELL_SIZE/2;
+        (GRID_SIZE - 1) * CELL_SIZE +
+        CELL_SIZE / 2;
 
     ctx.font =
-    (CELL_SIZE*0.55)+"px Arial";
+        (CELL_SIZE * 0.55) + "px Arial";
 
-    ctx.textAlign="center";
+    ctx.textAlign = "center";
 
-    ctx.textBaseline="middle";
+    ctx.textBaseline = "middle";
 
     ctx.fillText(
 
@@ -900,22 +901,22 @@ function drawFinishFlag(){
 // Draw Better Walls
 // ==========================================
 
-function applyWallStyle(){
+function applyWallStyle() {
 
-    ctx.strokeStyle="#00D4FF";
+    ctx.strokeStyle = "#00D4FF";
 
-    ctx.lineWidth=3;
+    ctx.lineWidth = 3;
 
-    ctx.shadowColor="#00D4FF";
+    ctx.shadowColor = "#00D4FF";
 
-    ctx.shadowBlur=12;
+    ctx.shadowBlur = 12;
 
 }
 // ==========================================
 // Premium Refresh
 // ==========================================
 
-function renderMaze(){
+function renderMaze() {
 
     applyWallStyle();
 
@@ -939,25 +940,25 @@ function renderMaze(){
 // Find Shortest Path
 // ==========================================
 
-function findShortestPath(){
+function findShortestPath() {
 
-    const queue=[];
+    const queue = [];
 
-    const visited=[];
+    const visited = [];
 
-    const parent=[];
+    const parent = [];
 
-    for(let r=0;r<GRID_SIZE;r++){
+    for (let r = 0; r < GRID_SIZE; r++) {
 
-        visited[r]=[];
+        visited[r] = [];
 
-        parent[r]=[];
+        parent[r] = [];
 
-        for(let c=0;c<GRID_SIZE;c++){
+        for (let c = 0; c < GRID_SIZE; c++) {
 
-            visited[r][c]=false;
+            visited[r][c] = false;
 
-            parent[r][c]=null;
+            parent[r][c] = null;
 
         }
 
@@ -965,55 +966,55 @@ function findShortestPath(){
 
     queue.push({
 
-        row:player.row,
+        row: playerPos.row,
 
-        col:player.col
+        col: playerPos.col
 
     });
 
-    visited[player.row][player.col]=true;
+    visited[playerPos.row][playerPos.col] = true;
 
-    while(queue.length){
+    while (queue.length) {
 
-        const current=queue.shift();
+        const current = queue.shift();
 
-        if(
+        if (
 
-            current.row===GRID_SIZE-1 &&
+            current.row === GRID_SIZE - 1 &&
 
-            current.col===GRID_SIZE-1
+            current.col === GRID_SIZE - 1
 
-        ){
+        ) {
 
             break;
 
         }
 
-        const cell=
+        const cell =
 
-        maze[current.row][current.col];
+            maze[current.row][current.col];
 
         // TOP
 
-        if(
+        if (
 
             !cell.walls.top &&
 
-            current.row>0 &&
+            current.row > 0 &&
 
-            !visited[current.row-1][current.col]
+            !visited[current.row - 1][current.col]
 
-        ){
+        ) {
 
-            visited[current.row-1][current.col]=true;
+            visited[current.row - 1][current.col] = true;
 
-            parent[current.row-1][current.col]=current;
+            parent[current.row - 1][current.col] = current;
 
             queue.push({
 
-                row:current.row-1,
+                row: current.row - 1,
 
-                col:current.col
+                col: current.col
 
             });
 
@@ -1021,25 +1022,25 @@ function findShortestPath(){
 
         // RIGHT
 
-        if(
+        if (
 
             !cell.walls.right &&
 
-            current.col<GRID_SIZE-1 &&
+            current.col < GRID_SIZE - 1 &&
 
-            !visited[current.row][current.col+1]
+            !visited[current.row][current.col + 1]
 
-        ){
+        ) {
 
-            visited[current.row][current.col+1]=true;
+            visited[current.row][current.col + 1] = true;
 
-            parent[current.row][current.col+1]=current;
+            parent[current.row][current.col + 1] = current;
 
             queue.push({
 
-                row:current.row,
+                row: current.row,
 
-                col:current.col+1
+                col: current.col + 1
 
             });
 
@@ -1047,25 +1048,25 @@ function findShortestPath(){
 
         // BOTTOM
 
-        if(
+        if (
 
             !cell.walls.bottom &&
 
-            current.row<GRID_SIZE-1 &&
+            current.row < GRID_SIZE - 1 &&
 
-            !visited[current.row+1][current.col]
+            !visited[current.row + 1][current.col]
 
-        ){
+        ) {
 
-            visited[current.row+1][current.col]=true;
+            visited[current.row + 1][current.col] = true;
 
-            parent[current.row+1][current.col]=current;
+            parent[current.row + 1][current.col] = current;
 
             queue.push({
 
-                row:current.row+1,
+                row: current.row + 1,
 
-                col:current.col
+                col: current.col
 
             });
 
@@ -1073,25 +1074,25 @@ function findShortestPath(){
 
         // LEFT
 
-        if(
+        if (
 
             !cell.walls.left &&
 
-            current.col>0 &&
+            current.col > 0 &&
 
-            !visited[current.row][current.col-1]
+            !visited[current.row][current.col - 1]
 
-        ){
+        ) {
 
-            visited[current.row][current.col-1]=true;
+            visited[current.row][current.col - 1] = true;
 
-            parent[current.row][current.col-1]=current;
+            parent[current.row][current.col - 1] = current;
 
             queue.push({
 
-                row:current.row,
+                row: current.row,
 
-                col:current.col-1
+                col: current.col - 1
 
             });
 
@@ -1099,21 +1100,21 @@ function findShortestPath(){
 
     }
 
-    const path=[];
+    const path = [];
 
-    let node={
+    let node = {
 
-        row:GRID_SIZE-1,
+        row: GRID_SIZE - 1,
 
-        col:GRID_SIZE-1
+        col: GRID_SIZE - 1
 
     };
 
-    while(node){
+    while (node) {
 
         path.unshift(node);
 
-        node=parent[node.row][node.col];
+        node = parent[node.row][node.col];
 
     }
 
@@ -1124,23 +1125,23 @@ function findShortestPath(){
         DRAW HINT PATH
 ==========================================*/
 
-function drawHint(path){
+function drawHint(path) {
 
     ctx.save();
 
-    ctx.fillStyle="rgba(255,215,0,.45)";
+    ctx.fillStyle = "rgba(255,215,0,.45)";
 
-    for(const step of path){
+    for (const step of path) {
 
         ctx.fillRect(
 
-            step.col*CELL_SIZE+6,
+            step.col * CELL_SIZE + 6,
 
-            step.row*CELL_SIZE+6,
+            step.row * CELL_SIZE + 6,
 
-            CELL_SIZE-12,
+            CELL_SIZE - 12,
 
-            CELL_SIZE-12
+            CELL_SIZE - 12
 
         );
 
@@ -1153,9 +1154,9 @@ function drawHint(path){
         SHOW HINT
 ==========================================*/
 
-function showHint(){
+function showHint() {
 
-    if(TOTAL_HINTS===0){
+    if (TOTAL_HINTS === 0) {
 
         alert("No hints available!");
 
@@ -1163,9 +1164,9 @@ function showHint(){
 
     }
 
-    const path=
+    const path =
 
-    findShortestPath();
+        findShortestPath();
 
     renderMaze();
 
@@ -1173,13 +1174,13 @@ function showHint(){
 
     drawPlayer();
 
-    if(TOTAL_HINTS!==Infinity){
+    if (TOTAL_HINTS !== Infinity) {
 
         TOTAL_HINTS--;
 
-        hintsText.innerHTML=
+        hintsText.innerHTML =
 
-        TOTAL_HINTS;
+            TOTAL_HINTS;
 
     }
 
@@ -1188,7 +1189,7 @@ function showHint(){
         HINT BUTTON
 ==========================================*/
 
-hintBtn.addEventListener("click",()=>{
+hintBtn.addEventListener("click", () => {
 
     showHint();
 
@@ -1202,19 +1203,19 @@ hintBtn.addEventListener("click",()=>{
 // Win Level
 // ==========================================
 
-function completeLevel(){
+function completeLevel() {
 
-    if(gameWon){
+    if (gameWon) {
 
         return;
 
     }
 
-    gameWon=true;
+    gameWon = true;
 
     // Stop Timer
 
-    if(typeof timerInterval!=="undefined"){
+    if (typeof timerInterval !== "undefined") {
 
         clearInterval(timerInterval);
 
@@ -1222,33 +1223,33 @@ function completeLevel(){
 
     // Rewards
 
-    let rewardCoins=level*20;
+    let rewardCoins = level * 20;
 
-    let rewardXP=level*10;
+    let rewardXP = level * 10;
 
-    if(level%5===0){
+    if (level % 5 === 0) {
 
-        rewardCoins+=100;
+        rewardCoins += 100;
 
-        rewardXP+=50;
+        rewardXP += 50;
 
     }
 
-    if(level%10===0){
+    if (level % 10 === 0) {
 
-        rewardCoins+=300;
+        rewardCoins += 300;
 
-        rewardXP+=150;
+        rewardXP += 150;
 
     }
 
     // Update Player
 
-    player.coins=
-    (player.coins||0)+rewardCoins;
+    player.coins =
+        (player.coins || 0) + rewardCoins;
 
-    player.xp=
-    (player.xp||0)+rewardXP;
+    player.xp =
+        (player.xp || 0) + rewardXP;
 
     localStorage.setItem(
 
@@ -1260,11 +1261,11 @@ function completeLevel(){
 
     // Update Popup
 
-    document.getElementById("winCoins").innerHTML=
-    rewardCoins;
+    document.getElementById("  rewardCoins").innerHTML =
+        rewardCoins;
 
-    document.getElementById("winXP").innerHTML=
-    rewardXP;
+    document.getElementById("rewardXP").innerHTML =
+        rewardXP;
 
     // Show Popup
 
@@ -1275,43 +1276,43 @@ function completeLevel(){
         SAVE PROGRESS
 ==========================================*/
 
-function saveProgress(){
+function saveProgress() {
 
-    let progress=
+    let progress =
 
-    JSON.parse(
+        JSON.parse(
 
-        localStorage.getItem("progress")
+            localStorage.getItem("progress")
 
-    );
+        );
 
-    if(!progress){
+    if (!progress) {
 
-        progress={
+        progress = {
 
-            currentLevel:1,
+            currentLevel: 1,
 
-            completed:0
+            completed: 0
 
         };
 
     }
 
-    if(level>=progress.currentLevel){
+    if (level >= progress.currentLevel) {
 
-        progress.currentLevel=level+1;
+        progress.currentLevel = level + 1;
 
     }
 
-    progress.completed=
+    progress.completed =
 
-    Math.max(
+        Math.max(
 
-        progress.completed,
+            progress.completed,
 
-        level
+            level
 
-    );
+        );
 
     localStorage.setItem(
 
@@ -1326,7 +1327,7 @@ function saveProgress(){
         NEXT LEVEL
 ==========================================*/
 
-function unlockNextLevel(){
+function unlockNextLevel() {
 
     saveProgress();
 
@@ -1334,7 +1335,7 @@ function unlockNextLevel(){
 
         "selectedLevel",
 
-        level+1
+        level + 1
 
     );
 
@@ -1347,11 +1348,11 @@ nextLevelBtn.addEventListener(
 
     "click",
 
-    ()=>{
+    () => {
 
         unlockNextLevel();
 
-        window.location.href="story.html";
+        window.location.href = "story.html";
 
     }
 
@@ -1361,7 +1362,7 @@ playAgainBtn.addEventListener(
 
     "click",
 
-    ()=>{
+    () => {
 
         window.location.reload();
 
@@ -1373,9 +1374,9 @@ dashboardBtn.addEventListener(
 
     "click",
 
-    ()=>{
+    () => {
 
-        window.location.href="levels.html";
+        window.location.href = "levels.html";
 
     }
 
@@ -1384,19 +1385,17 @@ dashboardBtn.addEventListener(
         CHECK WIN
 ==========================================*/
 
-function checkWin(){
+function checkWin() {
 
-    if(
+    if (
 
-       
 
-    playerPos.row===GRID_SIZE-1 &&
 
-    playerPos.col===GRID_SIZE-1
+        playerPos.row === GRID_SIZE - 1 &&
 
-)
+        playerPos.col === GRID_SIZE - 1
 
-    {
+    ) {
 
         completeLevel();
 
@@ -1407,15 +1406,16 @@ function checkWin(){
         UPDATE PLAYER PANEL
 ==========================================*/
 
-function refreshPlayerStats(){
+function refreshPlayerStats() {
 
-    coinsText.innerHTML=
+    coinsText.innerHTML =
 
-    player.coins;
+        player.coins;
 
-    xpText.innerHTML=
+    xpText.innerHTML =
 
-    player.xp;
+        player.xp||0;
+
 
 }
 /*==========================================
@@ -1427,25 +1427,25 @@ function refreshPlayerStats(){
 // Timer
 // ==========================================
 
-let timerInterval=null;
+let timerInterval = null;
 
-function startTimer(){
+function startTimer() {
 
-    if(TIME_LIMIT===0){
+    if (TIME_LIMIT === 0) {
 
-        timerText.innerHTML="∞";
+        timerText.innerHTML = "∞";
 
         return;
 
     }
 
-    timer=TIME_LIMIT;
+    timer = TIME_LIMIT;
 
-    timerText.innerHTML=timer;
+    timerText.innerHTML = timer;
 
-    timerInterval=setInterval(()=>{
+    timerInterval = setInterval(() => {
 
-        if(gamePaused || gameWon){
+        if (gamePaused || gameWon) {
 
             return;
 
@@ -1453,9 +1453,9 @@ function startTimer(){
 
         timer--;
 
-        timerText.innerHTML=timer;
+        timerText.innerHTML = timer;
 
-        if(timer<=0){
+        if (timer <= 0) {
 
             clearInterval(timerInterval);
 
@@ -1463,24 +1463,24 @@ function startTimer(){
 
         }
 
-    },1000);
+    }, 1000);
 
 }
 // ==========================================
 // Pause / Resume
 // ==========================================
 
-pauseBtn.addEventListener("click",()=>{
+pauseBtn.addEventListener("click", () => {
 
-    gamePaused=true;
+    gamePaused = true;
 
     pausePopup.classList.remove("hidden");
 
 });
 
-resumeBtn.addEventListener("click",()=>{
+resumeBtn.addEventListener("click", () => {
 
-    gamePaused=false;
+    gamePaused = false;
 
     pausePopup.classList.add("hidden");
 
@@ -1489,7 +1489,7 @@ resumeBtn.addEventListener("click",()=>{
 // Restart
 // ==========================================
 
-restartBtn.addEventListener("click",()=>{
+restartBtn.addEventListener("click", () => {
 
     location.reload();
 
@@ -1498,15 +1498,15 @@ restartBtn.addEventListener("click",()=>{
 // Game Over
 // ==========================================
 
-function gameOver(){
+function gameOver() {
 
-    gamePaused=true;
+    gamePaused = true;
 
     gameOverPopup.classList.remove("hidden");
 
 }
 
-retryBtn.addEventListener("click",()=>{
+retryBtn.addEventListener("click", () => {
 
     location.reload();
 
@@ -1515,26 +1515,26 @@ retryBtn.addEventListener("click",()=>{
 // Back Button
 // ==========================================
 
-backBtn.addEventListener("click",()=>{
+backBtn.addEventListener("click", () => {
 
-    window.location.href="levels.html";
+    window.location.href = "levels.html";
 
 });
 // ==========================================
 // Keyboard Shortcuts
 // ==========================================
 
-document.addEventListener("keydown",(e)=>{
+document.addEventListener("keydown", (e) => {
 
-    if(e.key==="Escape"){
+    if (e.key === "Escape") {
 
-        gamePaused=!gamePaused;
+        gamePaused = !gamePaused;
 
         pausePopup.classList.toggle("hidden");
 
     }
 
-    if(e.key==="r" || e.key==="R"){
+    if (e.key === "r" || e.key === "R") {
 
         location.reload();
 
@@ -1545,13 +1545,13 @@ document.addEventListener("keydown",(e)=>{
 // Start Game
 // ==========================================
 
-window.addEventListener("load",()=>{
+window.addEventListener("load", () => {
 
     loadingScreen.classList.add("hidden");
 
     initMaze();
 
-    startTimer();
+    // startTimer();
 
     refreshPlayerStats();
 
@@ -1567,9 +1567,9 @@ window.addEventListener("load",()=>{
 
 let playerPos = {
 
-    row:0,
+    row: 0,
 
-    col:0
+    col: 0
 
 };
 
@@ -1579,17 +1579,17 @@ let totalSteps = 0;
 // Draw Player
 // ==========================================
 
-function drawPlayer(){
+function drawPlayer() {
 
     const size = CELL_SIZE * 0.45;
 
-   const x =
-playerPos.col * CELL_SIZE +
-CELL_SIZE / 2;
+    const x =
+        playerPos.col * CELL_SIZE +
+        CELL_SIZE / 2;
 
-const y =
-playerPos.row * CELL_SIZE +
-CELL_SIZE / 2;
+    const y =
+        playerPos.row * CELL_SIZE +
+        CELL_SIZE / 2;
 
     ctx.beginPath();
 
@@ -1617,69 +1617,78 @@ CELL_SIZE / 2;
 // Move Player
 // ==========================================
 
-function movePlayer(direction){
+function movePlayer(direction) {
 
-    if(gamePaused || gameWon){
+    if (gamePaused || gameWon) {
 
         return;
 
     }
+    if(!maze.lenth){
+        return;
+    }
+    let moved = false;
 
-   let current =
-maze[playerPos.row][playerPos.col];
+    let current =
+        maze[playerPos.row][playerPos.col];
+        if(!current){
+            return;
+        }
 
-    switch(direction){
+    switch (direction) {
 
         case "up":
 
-            if(!current.walls.top){
+            if (!current.walls.top) {
 
-                player.row--;
-
+                playerPos.row--;
+                moved = true;
             }
 
             break;
 
         case "down":
 
-            if(!current.walls.bottom){
+            if (!current.walls.bottom) {
 
                 playerPos.row++;
-
+                moved = true;
             }
 
             break;
 
         case "left":
 
-            if(!current.walls.left){
+            if (!current.walls.left) {
 
-              playerPos.col--;
-
+                playerPos.col--;
+                moved = true;
             }
 
             break;
 
         case "right":
 
-            if(!current.walls.right){
+            if (!current.walls.right) {
 
                 playerPos.col++;
-
+                moved = true;
             }
 
             break;
 
     }
 
-    totalSteps++;
+    if(moved) {
+
+        totalSteps++;
+    }
 
     stepCounter.innerHTML =
-    "Steps : " + totalSteps;
-
-    drawMaze();
-
-    drawPlayer();
+        "Steps : " + totalSteps;
+    // drawMaze();
+    //drawplayer();
+    renderMaze();
 
     checkWin();
 
@@ -1688,9 +1697,9 @@ maze[playerPos.row][playerPos.col];
 // Keyboard Controls
 // ==========================================
 
-document.addEventListener("keydown",(e)=>{
+document.addEventListener("keydown", (e) => {
 
-    switch(e.key){
+    switch (e.key) {
 
         case "ArrowUp":
 
@@ -1740,33 +1749,33 @@ document.addEventListener("keydown",(e)=>{
 // ==========================================
 
 document
-.getElementById("upBtn")
-.addEventListener("click",()=>{
+    .getElementById("upBtn")
+    .addEventListener("click", () => {
 
-    movePlayer("up");
+        movePlayer("up");
 
-});
-
-document
-.getElementById("downBtn")
-.addEventListener("click",()=>{
-
-    movePlayer("down");
-
-});
+    });
 
 document
-.getElementById("leftBtn")
-.addEventListener("click",()=>{
+    .getElementById("downBtn")
+    .addEventListener("click", () => {
 
-    movePlayer("left");
+        movePlayer("down");
 
-});
+    });
 
 document
-.getElementById("rightBtn")
-.addEventListener("click",()=>{
+    .getElementById("leftBtn")
+    .addEventListener("click", () => {
 
-    movePlayer("right");
+        movePlayer("left");
 
-});
+    });
+
+document
+    .getElementById("rightBtn")
+    .addEventListener("click", () => {
+
+        movePlayer("right");
+
+    });
