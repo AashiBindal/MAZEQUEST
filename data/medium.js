@@ -6210,20 +6210,1938 @@ const mediumStories = [
 
         ]
 
-    }
+    },
 
 },
 
 
 
+/*==========================================
+            LEVEL 183
+==========================================*/
 
+{
+    level:183,
 
+    title:"☄ Asteroid Field",
 
+    description:
+    "Thousands of asteroids fly across the galaxy. Aryan must dodge them while finding the safe path.",
 
+    guide:
+    "Avoid moving meteors and don't get trapped.",
 
+    difficulty:"Medium",
 
+    mazeSize:22,
 
+    timeLimit:75,
 
+    hints:1,
+
+    lives:3,
+
+    music:"asteroid_field.mp3",
+
+    background:"asteroid_field.jpg",
+
+    weather:"meteors",
+
+    checkpoint:true,
+
+    question:"What is an asteroid made of?",
+
+    options:[
+        "Rock",
+        "Water",
+        "Wood",
+        "Ice Cream"
+    ],
+
+    answer:"Rock",
+
+    reward:{
+        coins:8600,
+        xp:4300,
+        gems:165
+    },
+
+    maze:{
+
+        layout:"asteroid",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"🪐",
+
+        objects:[
+
+            {
+                type:"meteor",
+
+                row:4,
+
+                col:5,
+
+                movement:"diagonal",
+
+                speed:3
+            },
+
+            {
+                type:"meteor",
+
+                row:10,
+
+                col:12,
+
+                movement:"horizontal",
+
+                minCol:8,
+
+                maxCol:18,
+
+                speed:4
+            },
+
+            {
+                type:"meteor",
+
+                row:15,
+
+                col:8,
+
+                movement:"vertical",
+
+                minRow:12,
+
+                maxRow:18,
+
+                speed:3
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 184
+==========================================*/
+
+{
+    level:184,
+
+    title:"🌕 Moon Base",
+
+    description:
+    "Aryan lands on the Moon where gravity is much weaker. Strange moon drones patrol the base while craters block the way.",
+
+    guide:
+    "Use low gravity carefully and avoid patrol drones.",
+
+    difficulty:"Medium",
+
+    mazeSize:22,
+
+    timeLimit:72,
+
+    hints:1,
+
+    lives:3,
+
+    music:"moon_base.mp3",
+
+    background:"moon_base.jpg",
+
+    weather:"moonDust",
+
+    checkpoint:true,
+
+    question:"Why can astronauts jump higher on the Moon?",
+
+    options:[
+        "Low Gravity",
+        "Strong Wind",
+        "More Oxygen",
+        "Rain"
+    ],
+
+    answer:"Low Gravity",
+
+    reward:{
+        coins:8800,
+        xp:4400,
+        gems:170
+    },
+
+    maze:{
+
+        layout:"moonBase",
+
+        player:"🧑‍🚀",
+
+        start:"🌕",
+
+        end:"🚪",
+
+        objects:[
+
+            {
+                type:"moonDrone",
+
+                row:6,
+
+                col:5,
+
+                movement:"path",
+
+                path:[
+                    {row:6,col:5},
+                    {row:6,col:12},
+                    {row:12,col:12},
+                    {row:12,col:5}
+                ],
+
+                speed:2
+            },
+
+            {
+                type:"crater",
+
+                row:10,
+
+                col:8
+            },
+
+            {
+                type:"jumpPad",
+
+                row:15,
+
+                col:14
+            }
+
+        ]
+
+    }
+
+},
+/*==========================================
+            LEVEL 185
+==========================================*/
+
+{
+    level:185,
+
+    title:"👽 Alien Outpost",
+
+    description:
+    "Aryan lands at an abandoned Alien Outpost. Security robots and alien guards continuously patrol the corridors. A hidden Energy Key is required to unlock the exit.",
+
+    guide:
+    "Avoid Alien Guards, collect the Energy Key and unlock the Space Gate.",
+
+    difficulty:"Medium",
+
+    mazeSize:22,
+
+    timeLimit:70,
+
+    hints:1,
+
+    lives:3,
+
+    music:"alien_outpost.mp3",
+
+    background:"alien_outpost.jpg",
+
+    weather:"greenGlow",
+
+    checkpoint:true,
+
+    question:"Which planet is called the Red Planet?",
+
+    options:[
+        "Mars",
+        "Earth",
+        "Venus",
+        "Mercury"
+    ],
+
+    answer:"Mars",
+
+    reward:{
+        coins:9000,
+        xp:4500,
+        gems:175
+    },
+
+    maze:{
+
+        layout:"alienBase",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"🚪",
+
+        objects:[
+
+            {
+                type:"alien",
+
+                row:6,
+
+                col:5,
+
+                movement:"horizontal",
+
+                minCol:5,
+
+                maxCol:15,
+
+                speed:2
+            },
+
+            {
+                type:"alien",
+
+                row:13,
+
+                col:10,
+
+                movement:"vertical",
+
+                minRow:10,
+
+                maxRow:18,
+
+                speed:3
+            },
+
+            {
+                type:"energyKey",
+
+                row:18,
+
+                col:4
+            },
+
+            {
+                type:"spaceGate",
+
+                row:4,
+
+                col:18
+            },
+
+            {
+                type:"energyOrb",
+
+                row:9,
+
+                col:9
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 186
+==========================================*/
+
+{
+    level:186,
+
+    title:"🛸 UFO Highway",
+
+    description:
+    "Hundreds of UFOs fly across the galaxy. Aryan must cross the dangerous space highway without getting hit.",
+
+    guide:
+    "Watch the UFO flight paths carefully before crossing.",
+
+    difficulty:"Medium",
+
+    mazeSize:22,
+
+    timeLimit:68,
+
+    hints:1,
+
+    lives:3,
+
+    music:"ufo_highway.mp3",
+
+    background:"ufo_highway.jpg",
+
+    weather:"stars",
+
+    checkpoint:true,
+
+    question:"A UFO is commonly known as?",
+
+    options:[
+        "Unidentified Flying Object",
+        "Rocket",
+        "Satellite",
+        "Meteor"
+    ],
+
+    answer:"Unidentified Flying Object",
+
+    reward:{
+        coins:9300,
+        xp:4650,
+        gems:180
+    },
+
+    maze:{
+
+        layout:"ufoRoad",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"⭐",
+
+        objects:[
+
+            {
+                type:"ufo",
+
+                row:5,
+
+                col:4,
+
+                movement:"circular",
+
+                radius:3,
+
+                speed:2
+            },
+
+            {
+                type:"ufo",
+
+                row:12,
+
+                col:14,
+
+                movement:"horizontal",
+
+                minCol:8,
+
+                maxCol:18,
+
+                speed:3
+            },
+
+            {
+                type:"meteor",
+
+                row:9,
+
+                col:8,
+
+                movement:"diagonal",
+
+                speed:3
+            },
+
+            {
+                type:"fuelCell",
+
+                row:17,
+
+                col:6
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 187
+==========================================*/
+
+{
+    level:187,
+
+    title:"⚫ Black Hole Zone",
+
+    description:
+    "Aryan reaches the most dangerous area of space. Massive Black Holes pull everything toward them while meteors rain across the galaxy.",
+
+    guide:
+    "Stay outside the Black Hole's gravity field and escape safely.",
+
+    difficulty:"Medium",
+
+    mazeSize:22,
+
+    timeLimit:65,
+
+    hints:1,
+
+    lives:3,
+
+    music:"black_hole.mp3",
+
+    background:"black_hole.jpg",
+
+    weather:"spaceStorm",
+
+    checkpoint:true,
+
+    question:"What happens near a Black Hole?",
+
+    options:[
+        "Strong Gravity",
+        "Heavy Rain",
+        "Snowfall",
+        "Thunder"
+    ],
+
+    answer:"Strong Gravity",
+
+    reward:{
+        coins:9700,
+        xp:4850,
+        gems:185
+    },
+
+    maze:{
+
+        layout:"gravityMaze",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"🌌",
+
+        objects:[
+
+            {
+                type:"blackHole",
+
+                row:10,
+
+                col:10,
+
+                radius:4,
+
+                pull:2
+            },
+
+            {
+                type:"blackHole",
+
+                row:16,
+
+                col:6,
+
+                radius:3,
+
+                pull:1
+            },
+
+            {
+                type:"meteor",
+
+                row:5,
+
+                col:15,
+
+                movement:"horizontal",
+
+                minCol:10,
+
+                maxCol:19,
+
+                speed:3
+            },
+
+            {
+                type:"alien",
+
+                row:8,
+
+                col:5,
+
+                movement:"path",
+
+                path:[
+                    {row:8,col:5},
+                    {row:8,col:12},
+                    {row:14,col:12},
+                    {row:14,col:5}
+                ],
+
+                speed:2
+            },
+
+            {
+                type:"spaceCrystal",
+
+                row:19,
+
+                col:18
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 188
+==========================================*/
+
+{
+    level:188,
+
+    title:"⭐ Star Research Lab",
+
+    description:
+    "Aryan enters the secret Star Research Laboratory where powerful laser security systems protect the Galaxy Core. Every laser turns ON and OFF automatically.",
+
+    guide:
+    "Time your movement carefully and cross only when the lasers are OFF.",
+
+    difficulty:"Medium",
+
+    mazeSize:22,
+
+    timeLimit:60,
+
+    hints:1,
+
+    lives:3,
+
+    music:"star_lab.mp3",
+
+    background:"star_lab.jpg",
+
+    weather:"energy",
+
+    checkpoint:true,
+
+    question:"What produces light in space?",
+
+    options:[
+        "Stars",
+        "Moon",
+        "Clouds",
+        "Asteroids"
+    ],
+
+    answer:"Stars",
+
+    reward:{
+        coins:10000,
+        xp:5000,
+        gems:190
+    },
+
+    maze:{
+
+        layout:"laserLab",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"⭐",
+
+        objects:[
+
+            {
+                type:"laser",
+
+                row:5,
+
+                col:6,
+
+                direction:"horizontal",
+
+                interval:2
+            },
+
+            {
+                type:"laser",
+
+                row:10,
+
+                col:12,
+
+                direction:"vertical",
+
+                interval:3
+            },
+
+            {
+                type:"robot",
+
+                row:14,
+
+                col:8,
+
+                movement:"horizontal",
+
+                minCol:6,
+
+                maxCol:16,
+
+                speed:2
+            },
+
+            {
+                type:"energyCrystal",
+
+                row:18,
+
+                col:18
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 189
+==========================================*/
+
+{
+    level:189,
+
+    title:"👽 Alien Fortress",
+
+    description:
+    "Aryan reaches the Alien King's fortress. Elite alien guards protect the Space Crystal Gate using advanced patrol systems.",
+
+    guide:
+    "Collect the Galaxy Key and avoid the Elite Guards.",
+
+    difficulty:"Medium",
+
+    mazeSize:22,
+
+    timeLimit:55,
+
+    hints:1,
+
+    lives:3,
+
+    music:"alien_fortress.mp3",
+
+    background:"alien_fortress.jpg",
+
+    weather:"purpleGlow",
+
+    checkpoint:true,
+
+    question:"Which key unlocks the fortress?",
+
+    options:[
+        "Galaxy Key",
+        "Golden Key",
+        "Silver Key",
+        "Magic Key"
+    ],
+
+    answer:"Galaxy Key",
+
+    reward:{
+        coins:11000,
+        xp:5500,
+        gems:195
+    },
+
+    maze:{
+
+        layout:"fortress",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"🏰",
+
+        objects:[
+
+            {
+                type:"eliteAlien",
+
+                row:6,
+
+                col:5,
+
+                movement:"path",
+
+                path:[
+                    {row:6,col:5},
+                    {row:6,col:16},
+                    {row:14,col:16},
+                    {row:14,col:5}
+                ],
+
+                speed:3
+            },
+
+            {
+                type:"galaxyKey",
+
+                row:18,
+
+                col:4
+            },
+
+            {
+                type:"spaceGate",
+
+                row:5,
+
+                col:18
+            },
+
+            {
+                type:"laser",
+
+                row:10,
+
+                col:9,
+
+                direction:"vertical",
+
+                interval:2
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 190
+==========================================*/
+
+{
+    level:190,
+
+    title:"💎 Space Crystal Temple",
+
+    description:
+    "Aryan finally reaches the legendary Space Crystal Temple. The Cosmic Guardian protects the sacred crystal using meteors, lasers and gravity fields.",
+
+    guide:
+    "Collect the Space Crystal and escape safely.",
+
+    difficulty:"Medium",
+
+    mazeSize:24,
+
+    timeLimit:50,
+
+    hints:0,
+
+    lives:3,
+
+    music:"space_temple.mp3",
+
+    background:"space_temple.jpg",
+
+    weather:"cosmicStorm",
+
+    checkpoint:true,
+
+    question:"What is the final reward of Space Mission?",
+
+    options:[
+        "Space Crystal",
+        "Gold",
+        "Sword",
+        "Shield"
+    ],
+
+    answer:"Space Crystal",
+
+    reward:{
+        coins:15000,
+        xp:7000,
+        gems:250,
+        badge:"🚀 Space Explorer",
+        crystal:"💎 Space Crystal"
+    },
+
+    maze:{
+
+        layout:"finalTemple",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"💎",
+
+        objects:[
+
+            {
+                type:"guardian",
+
+                row:11,
+
+                col:11,
+
+                movement:"circular",
+
+                radius:3,
+
+                speed:2
+            },
+
+            {
+                type:"laser",
+
+                row:7,
+
+                col:8,
+
+                direction:"horizontal",
+
+                interval:2
+            },
+
+            {
+                type:"meteor",
+
+                row:15,
+
+                col:6,
+
+                movement:"diagonal",
+
+                speed:4
+            },
+
+            {
+                type:"blackHole",
+
+                row:18,
+
+                col:16,
+
+                radius:3,
+
+                pull:2
+            },
+
+            {
+                type:"spaceCrystal",
+
+                row:22,
+
+                col:22
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 191
+==========================================*/
+
+{
+    level:191,
+
+    title:"🌌 Galaxy Gateway",
+
+    description:
+    "Aryan enters the Galaxy Kingdom through a magical portal. Energy portals continuously teleport objects across the maze.",
+
+    guide:
+    "Use the portals wisely and avoid the moving drones.",
+
+    difficulty:"Medium",
+
+    mazeSize:24,
+
+    timeLimit:48,
+
+    hints:0,
+
+    lives:3,
+
+    music:"galaxy_gateway.mp3",
+
+    background:"galaxy_gateway.jpg",
+
+    weather:"galaxyDust",
+
+    checkpoint:true,
+
+    question:"What is our galaxy called?",
+
+    options:[
+        "Milky Way",
+        "Andromeda",
+        "Sombrero",
+        "Whirlpool"
+    ],
+
+    answer:"Milky Way",
+
+    reward:{
+        coins:15500,
+        xp:7200,
+        gems:255
+    },
+
+    maze:{
+
+        layout:"portalMaze",
+
+        player:"🧑‍🚀",
+
+        start:"🌀",
+
+        end:"🌌",
+
+        objects:[
+
+            {
+                type:"portal",
+                row:4,
+                col:4,
+                pair:"A"
+            },
+
+            {
+                type:"portal",
+                row:19,
+                col:20,
+                pair:"A"
+            },
+
+            {
+                type:"drone",
+                row:8,
+                col:6,
+                movement:"horizontal",
+                minCol:4,
+                maxCol:15,
+                speed:3
+            },
+
+            {
+                type:"energyOrb",
+                row:12,
+                col:14
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 192
+==========================================*/
+
+{
+    level:192,
+
+    title:"🛰 Satellite Defense",
+
+    description:
+    "The Galaxy Kingdom is protected by rotating satellites that fire energy beams across the maze.",
+
+    guide:
+    "Cross only when the satellites rotate away.",
+
+    difficulty:"Medium",
+
+    mazeSize:24,
+
+    timeLimit:46,
+
+    hints:0,
+
+    lives:3,
+
+    music:"satellite_defense.mp3",
+
+    background:"satellite_defense.jpg",
+
+    weather:"spaceWind",
+
+    checkpoint:true,
+
+    question:"Satellites revolve around?",
+
+    options:[
+        "Planets",
+        "Trees",
+        "Mountains",
+        "Rivers"
+    ],
+
+    answer:"Planets",
+
+    reward:{
+        coins:16000,
+        xp:7400,
+        gems:260
+    },
+
+    maze:{
+
+        layout:"satelliteMaze",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"🛰",
+
+        objects:[
+
+            {
+                type:"satellite",
+                row:10,
+                col:10,
+                movement:"circular",
+                radius:4,
+                speed:2
+            },
+
+            {
+                type:"laser",
+                row:7,
+                col:15,
+                direction:"vertical",
+                interval:2
+            },
+
+            {
+                type:"meteor",
+                row:18,
+                col:5,
+                movement:"horizontal",
+                minCol:5,
+                maxCol:18,
+                speed:3
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 193
+==========================================*/
+
+{
+    level:193,
+
+    title:"☄ Meteor Storm",
+
+    description:
+    "A deadly meteor storm blocks every route. Meteors continuously rain from space while shockwaves spread across the maze.",
+
+    guide:
+    "Keep moving and avoid the falling meteors.",
+
+    difficulty:"Medium",
+
+    mazeSize:24,
+
+    timeLimit:44,
+
+    hints:0,
+
+    lives:3,
+
+    music:"meteor_storm.mp3",
+
+    background:"meteor_storm.jpg",
+
+    weather:"meteorRain",
+
+    checkpoint:true,
+
+    question:"Meteors mainly consist of?",
+
+    options:[
+        "Rock",
+        "Water",
+        "Wood",
+        "Sand"
+    ],
+
+    answer:"Rock",
+
+    reward:{
+        coins:16500,
+        xp:7600,
+        gems:265
+    },
+
+    maze:{
+
+        layout:"stormMaze",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"⭐",
+
+        objects:[
+
+            {
+                type:"meteor",
+                row:4,
+                col:8,
+                movement:"vertical",
+                minRow:2,
+                maxRow:20,
+                speed:4
+            },
+
+            {
+                type:"meteor",
+                row:6,
+                col:15,
+                movement:"diagonal",
+                speed:4
+            },
+
+            {
+                type:"shockwave",
+                row:12,
+                col:12,
+                radius:3
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 194
+==========================================*/
+
+{
+    level:194,
+
+    title:"🌀 Wormhole Network",
+
+    description:
+    "Ancient wormholes connect distant parts of the galaxy. Choosing the wrong portal may trap Aryan forever.",
+
+    guide:
+    "Remember each portal's destination.",
+
+    difficulty:"Medium",
+
+    mazeSize:24,
+
+    timeLimit:42,
+
+    hints:0,
+
+    lives:3,
+
+    music:"wormhole.mp3",
+
+    background:"wormhole.jpg",
+
+    weather:"cosmicFog",
+
+    checkpoint:true,
+
+    question:"A wormhole is believed to connect?",
+
+    options:[
+        "Two places in space",
+        "Two rivers",
+        "Two forests",
+        "Two oceans"
+    ],
+
+    answer:"Two places in space",
+
+    reward:{
+        coins:17000,
+        xp:7800,
+        gems:270
+    },
+
+    maze:{
+
+        layout:"wormholeMaze",
+
+        player:"🧑‍🚀",
+
+        start:"🌀",
+
+        end:"🌠",
+
+        objects:[
+
+            {
+                type:"wormhole",
+                row:4,
+                col:5,
+                pair:"B"
+            },
+
+            {
+                type:"wormhole",
+                row:18,
+                col:19,
+                pair:"B"
+            },
+
+            {
+                type:"alien",
+                row:10,
+                col:10,
+                movement:"path",
+                path:[
+                    {row:10,col:10},
+                    {row:10,col:18},
+                    {row:18,col:18},
+                    {row:18,col:10}
+                ],
+                speed:3
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 195
+==========================================*/
+
+{
+    level:195,
+
+    title:"👑 Galaxy King's Palace",
+
+    description:
+    "Aryan reaches the palace of the Galaxy King. Elite guards, lasers and portals protect the legendary Galaxy Crown.",
+
+    guide:
+    "Collect the Galaxy Crown before escaping.",
+
+    difficulty:"Medium",
+
+    mazeSize:24,
+
+    timeLimit:40,
+
+    hints:0,
+
+    lives:3,
+
+    music:"galaxy_palace.mp3",
+
+    background:"galaxy_palace.jpg",
+
+    weather:"royalGlow",
+
+    checkpoint:true,
+
+    question:"Who protects the Galaxy Crown?",
+
+    options:[
+        "Galaxy Guards",
+        "Pirates",
+        "Robots",
+        "Astronauts"
+    ],
+
+    answer:"Galaxy Guards",
+
+    reward:{
+        coins:18000,
+        xp:8200,
+        gems:300,
+        badge:"👑 Galaxy Hero"
+    },
+
+    maze:{
+
+        layout:"palace",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"👑",
+
+        objects:[
+
+            {
+                type:"galaxyGuard",
+                row:8,
+                col:8,
+                movement:"circular",
+                radius:3,
+                speed:3
+            },
+
+            {
+                type:"laser",
+                row:12,
+                col:15,
+                direction:"horizontal",
+                interval:2
+            },
+
+            {
+                type:"portal",
+                row:5,
+                col:18,
+                pair:"C"
+            },
+
+            {
+                type:"portal",
+                row:20,
+                col:3,
+                pair:"C"
+            },
+
+            {
+                type:"galaxyCrown",
+                row:22,
+                col:22
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 196
+==========================================*/
+
+{
+    level:196,
+
+    title:"🌌 Cosmic Rift",
+
+    description:
+    "The fabric of space begins to tear apart. Cosmic Rifts open and close randomly while unstable energy blocks the path.",
+
+    guide:
+    "Cross only when the Cosmic Rift is inactive.",
+
+    difficulty:"Medium",
+
+    mazeSize:25,
+
+    timeLimit:38,
+
+    hints:0,
+
+    lives:3,
+
+    music:"cosmic_rift.mp3",
+
+    background:"cosmic_rift.jpg",
+
+    weather:"purpleLightning",
+
+    checkpoint:true,
+
+    question:"What is the empty region between stars called?",
+
+    options:[
+        "Space",
+        "Ocean",
+        "Forest",
+        "Desert"
+    ],
+
+    answer:"Space",
+
+    reward:{
+        coins:18500,
+        xp:8500,
+        gems:310
+    },
+
+    maze:{
+
+        layout:"riftMaze",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"🌌",
+
+        objects:[
+
+            {
+                type:"cosmicRift",
+                row:8,
+                col:9,
+                interval:3
+            },
+
+            {
+                type:"cosmicRift",
+                row:15,
+                col:17,
+                interval:2
+            },
+
+            {
+                type:"guardianDrone",
+                row:10,
+                col:6,
+                movement:"horizontal",
+                minCol:4,
+                maxCol:18,
+                speed:3
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 197
+==========================================*/
+
+{
+    level:197,
+
+    title:"🌠 Galaxy Reactor",
+
+    description:
+    "The Galaxy Reactor powers the entire kingdom. Rotating energy beams and unstable reactors create deadly obstacles.",
+
+    guide:
+    "Avoid spinning laser beams and overloaded reactors.",
+
+    difficulty:"Medium",
+
+    mazeSize:25,
+
+    timeLimit:36,
+
+    hints:0,
+
+    lives:3,
+
+    music:"galaxy_reactor.mp3",
+
+    background:"galaxy_reactor.jpg",
+
+    weather:"energyStorm",
+
+    checkpoint:true,
+
+    question:"Stars mainly produce?",
+
+    options:[
+        "Energy",
+        "Water",
+        "Wood",
+        "Sand"
+    ],
+
+    answer:"Energy",
+
+    reward:{
+        coins:19000,
+        xp:8800,
+        gems:320
+    },
+
+    maze:{
+
+        layout:"reactor",
+
+        player:"🧑‍🚀",
+
+        start:"⚡",
+
+        end:"🌟",
+
+        objects:[
+
+            {
+                type:"rotatingLaser",
+                row:12,
+                col:12,
+                rotationSpeed:3
+            },
+
+            {
+                type:"reactorCore",
+                row:6,
+                col:18,
+                pulse:true
+            },
+
+            {
+                type:"energyOrb",
+                row:20,
+                col:7
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 198
+==========================================*/
+
+{
+    level:198,
+
+    title:"👑 Galaxy Throne",
+
+    description:
+    "Elite Galaxy Guards protect the royal throne using teleport gates and moving laser barriers.",
+
+    guide:
+    "Use teleport gates while avoiding the guards.",
+
+    difficulty:"Medium",
+
+    mazeSize:25,
+
+    timeLimit:34,
+
+    hints:0,
+
+    lives:3,
+
+    music:"galaxy_throne.mp3",
+
+    background:"galaxy_throne.jpg",
+
+    weather:"royalAura",
+
+    checkpoint:true,
+
+    question:"Who protects the Galaxy Throne?",
+
+    options:[
+        "Galaxy Guards",
+        "Pirates",
+        "Robots",
+        "Astronauts"
+    ],
+
+    answer:"Galaxy Guards",
+
+    reward:{
+        coins:20000,
+        xp:9000,
+        gems:340
+    },
+
+    maze:{
+
+        layout:"royalMaze",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"👑",
+
+        objects:[
+
+            {
+                type:"eliteGuard",
+                row:10,
+                col:10,
+                movement:"path",
+                speed:4
+            },
+
+            {
+                type:"teleporter",
+                row:5,
+                col:5,
+                pair:"D"
+            },
+
+            {
+                type:"teleporter",
+                row:21,
+                col:20,
+                pair:"D"
+            },
+
+            {
+                type:"laserWall",
+                row:14,
+                col:8,
+                movement:"vertical",
+                speed:2
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 199
+==========================================*/
+
+{
+    level:199,
+
+    title:"💀 Cosmic Guardian",
+
+    description:
+    "The Cosmic Guardian awakens. It controls meteors, black holes and laser storms simultaneously.",
+
+    guide:
+    "Survive every attack and reach the Cosmic Portal.",
+
+    difficulty:"Medium",
+
+    mazeSize:26,
+
+    timeLimit:30,
+
+    hints:0,
+
+    lives:3,
+
+    music:"guardian_battle.mp3",
+
+    background:"guardian_arena.jpg",
+
+    weather:"meteorStorm",
+
+    checkpoint:true,
+
+    question:"What protects the final portal?",
+
+    options:[
+        "Cosmic Guardian",
+        "Dragon",
+        "Robot",
+        "Tiger"
+    ],
+
+    answer:"Cosmic Guardian",
+
+    reward:{
+        coins:23000,
+        xp:10000,
+        gems:380
+    },
+
+    maze:{
+
+        layout:"bossArena",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"🌀",
+
+        objects:[
+
+            {
+                type:"guardian",
+                row:13,
+                col:13,
+                movement:"circular",
+                radius:5,
+                speed:4
+            },
+
+            {
+                type:"meteor",
+                row:5,
+                col:20,
+                movement:"random",
+                speed:5
+            },
+
+            {
+                type:"blackHole",
+                row:18,
+                col:7,
+                radius:4,
+                pull:3
+            },
+
+            {
+                type:"laserStorm",
+                interval:2
+            }
+
+        ]
+
+    }
+
+},
+
+/*==========================================
+            LEVEL 200
+==========================================*/
+
+{
+    level:200,
+
+    title:"🏆 Master of the Galaxy",
+
+    description:
+    "Aryan has reached the final challenge of Medium Mode. The legendary Galaxy Core is protected by every obstacle encountered so far. Only true explorers can claim victory.",
+
+    guide:
+    "Collect the Galaxy Core and escape the collapsing universe.",
+
+    difficulty:"Medium",
+
+    mazeSize:26,
+
+    timeLimit:28,
+
+    hints:0,
+
+    lives:3,
+
+    music:"final_victory.mp3",
+
+    background:"galaxy_core.jpg",
+
+    weather:"universeCollapse",
+
+    checkpoint:true,
+
+    question:"What is the final treasure of Medium Mode?",
+
+    options:[
+        "Galaxy Core",
+        "Diamond",
+        "Gold",
+        "Sword"
+    ],
+
+    answer:"Galaxy Core",
+
+    reward:{
+        coins:50000,
+        xp:25000,
+        gems:1000,
+        badge:"🏆 Master of the Galaxy",
+        trophy:"🌌 Medium Mode Complete"
+    },
+
+    maze:{
+
+        layout:"ultimateMaze",
+
+        player:"🧑‍🚀",
+
+        start:"🚀",
+
+        end:"🌌",
+
+        objects:[
+
+            {
+                type:"guardianKing",
+                row:13,
+                col:13,
+                movement:"boss",
+                speed:5
+            },
+
+            {
+                type:"blackHole",
+                row:6,
+                col:6,
+                radius:3,
+                pull:3
+            },
+
+            {
+                type:"rotatingLaser",
+                row:18,
+                col:18,
+                rotationSpeed:4
+            },
+
+            {
+                type:"teleporter",
+                row:4,
+                col:21,
+                pair:"FINAL"
+            },
+
+            {
+                type:"teleporter",
+                row:22,
+                col:3,
+                pair:"FINAL"
+            },
+
+            {
+                type:"galaxyCore",
+                row:24,
+                col:24
+            }
+
+        ]
+
+    }
+
+},
 
 
 
