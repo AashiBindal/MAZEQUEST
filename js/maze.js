@@ -800,9 +800,9 @@ function initMaze() {
 
     
 
-currentObjects = currentLevelData
-        ? JSON.parse(JSON.stringify(currentLevelData.maze.objects || []))
-        : [];
+currentObjects = currentLevelData?.maze?.objects
+    ? JSON.parse(JSON.stringify(currentLevelData.maze.objects))
+    : [];
 
 
     collectedKeys = [];

@@ -84,6 +84,9 @@ const mediumStories = [
 
     answer:"Key",
 
+
+    timeLimit: 100, 
+
     reward:{
         coins:240,
         xp:120,
