@@ -30,9 +30,9 @@ const cursorGlow = document.querySelector(".cursor-glow");
 
 let player = JSON.parse(localStorage.getItem("player"));
 
-if(!player){
+if (!player) {
 
-    window.location.href="login.html";
+    window.location.href = "login.html";
 
 }
 
@@ -48,28 +48,28 @@ coins.textContent = player.coins || 0;
 
 const difficulty = localStorage.getItem("difficulty") || "Easy";
 
-difficultyTitle.innerHTML = difficulty.toUpperCase()+" MODE";
+difficultyTitle.innerHTML = difficulty.toUpperCase() + " MODE";
 
-switch(difficulty){
+switch (difficulty) {
 
     case "Easy":
 
         difficultyInfo.innerHTML =
-        "10 × 10 Maze • Unlimited Hints";
+            "10 × 10 Maze • Unlimited Hints";
 
         break;
 
     case "Medium":
 
         difficultyInfo.innerHTML =
-        "20 × 20 Maze • 3 Hints • 60 sec";
+            "20 × 20 Maze • 3 Hints • 60 sec";
 
         break;
 
     case "Extreme":
 
         difficultyInfo.innerHTML =
-        "35 × 35 Maze • No Hints • 30 sec";
+            "35 × 35 Maze • No Hints • 30 sec";
 
         break;
 
@@ -77,30 +77,104 @@ switch(difficulty){
 
 
 // ================================
-// Progress
+// Level Range Per Difficulty
 // ================================
+
+let LEVEL_START = 1;
+let TOTAL_LEVELS = 100;
+
+if (difficulty === "Medium") {
+
+    LEVEL_START = 101;
+    TOTAL_LEVELS = 100; // Levels 101 - 200
+
+} else if (difficulty === "Extreme") {
+
+    LEVEL_START = 201;
+    TOTAL_LEVELS = 100; // Levels 201 - 300 (CONFIRM with extreme.js)
+
+} else {
+
+    LEVEL_START = 1;
+    TOTAL_LEVELS = 100; // Levels 1 - 100
+
+}
+
+const LEVEL_END = LEVEL_START + TOTAL_LEVELS - 1;
+
 
 // ================================
 // Progress (Difficulty Wise)
+// PERMANENT FIX: Self-healing migration guard
 // ================================
 
 const progressKey = difficulty + "_progress";
 
 let progress = JSON.parse(localStorage.getItem(progressKey));
 
-if(!progress){
+// AGAR progress exist karta hai LEKIN currentLevel is difficulty
+// ke valid range se bahar hai (purana/stale data), to auto-reset karo.
+// Coins preserve rakhte hain, sirf level reset hota hai.
 
-    progress={
+if (
 
-        currentLevel:1,
+    progress &&
 
-        completed:0,
+    (
 
-        coins:0
+        progress.currentLevel < LEVEL_START ||
+
+        progress.currentLevel > LEVEL_END + 1
+
+    )
+
+) {
+
+    console.warn(
+
+        "⚠ Stale progress detected for " +
+
+        difficulty +
+
+        ". Auto-fixing currentLevel from " +
+
+        progress.currentLevel +
+
+        " to " +
+
+        LEVEL_START
+
+    );
+
+    progress = {
+
+        currentLevel: LEVEL_START,
+
+        completed: 0,
+
+        coins: progress.coins || 0
 
     };
 
-    localStorage.setItem(progressKey,JSON.stringify(progress));
+    localStorage.setItem(progressKey, JSON.stringify(progress));
+
+}
+
+// Agar progress bilkul exist hi nahi karta (bilkul naya player/mode)
+
+if (!progress) {
+
+    progress = {
+
+        currentLevel: LEVEL_START,
+
+        completed: 0,
+
+        coins: 0
+
+    };
+
+    localStorage.setItem(progressKey, JSON.stringify(progress));
 
 }
 
@@ -110,32 +184,26 @@ completedLevels.innerHTML = progress.completed;
 
 coins.innerHTML = progress.coins;
 
-currentLevel.innerHTML=progress.currentLevel;
-
-completedLevels.innerHTML=progress.completed;
-
 
 // ================================
 // Generate Levels
 // ================================
 
-const TOTAL_LEVELS = 100;
-levelsGrid.innerHTML="";
-for(let i=1;i<=TOTAL_LEVELS;i++){
+levelsGrid.innerHTML = "";
 
-    const card=document.createElement("div");
+for (let i = LEVEL_START; i <= LEVEL_END; i++) {
+
+    const card = document.createElement("div");
 
     card.classList.add("level-card");
 
     // Unlock Logic
 
-    if(i<=progress.currentLevel){
+    if (i <= progress.currentLevel) {
 
         card.classList.add("unlocked");
 
-    }
-
-    else{
+    } else {
 
         card.classList.add("locked");
 
@@ -143,17 +211,21 @@ for(let i=1;i<=TOTAL_LEVELS;i++){
 
     // Completed
 
-    if(i < progress.currentLevel){
+    if (i < progress.currentLevel) {
 
-    card.classList.remove("locked");
+        card.classList.remove("locked");
 
-    card.classList.add("completed");
+        card.classList.add("completed");
 
-}
+    }
+
+    // Position within this difficulty's own range
+
+    const relativeIndex = i - LEVEL_START + 1;
 
     // Reward
 
-    if(i%5===0){
+    if (relativeIndex % 5 === 0) {
 
         card.classList.add("reward");
 
@@ -161,7 +233,7 @@ for(let i=1;i<=TOTAL_LEVELS;i++){
 
     // Boss
 
-    if(i%10===0){
+    if (relativeIndex % 10 === 0) {
 
         card.classList.add("boss");
 
@@ -169,21 +241,19 @@ for(let i=1;i<=TOTAL_LEVELS;i++){
 
     // Card HTML
 
-    let icon="🧩";
+    let icon = "🧩";
 
-    if(i%10===0){
+    if (relativeIndex % 10 === 0) {
 
-        icon="👑";
+        icon = "👑";
 
-    }
+    } else if (relativeIndex % 5 === 0) {
 
-    else if(i%5===0){
-
-        icon="🎁";
+        icon = "🎁";
 
     }
 
-    card.innerHTML=`
+    card.innerHTML = `
 
         <div style="font-size:40px;">
             ${icon}
@@ -194,7 +264,7 @@ for(let i=1;i<=TOTAL_LEVELS;i++){
         <p>
 
             ${
-                i<=progress.currentLevel
+                i <= progress.currentLevel
                 ? "Tap to Play"
                 : "Locked"
             }
@@ -207,17 +277,17 @@ for(let i=1;i<=TOTAL_LEVELS;i++){
 
     // Click
 
-    if(i<=progress.currentLevel){
+    if (i <= progress.currentLevel) {
 
-        card.addEventListener("click",()=>{
+        card.addEventListener("click", () => {
 
-    localStorage.setItem("selectedLevel",i);
+            localStorage.setItem("selectedLevel", i);
 
-    localStorage.setItem("difficulty",difficulty);
+            localStorage.setItem("difficulty", difficulty);
 
-    window.location.href="story.html";
+            window.location.href = "story.html";
 
-});
+        });
 
     }
 
@@ -230,26 +300,26 @@ for(let i=1;i<=TOTAL_LEVELS;i++){
 // Particles
 // ================================
 
-for(let i=0;i<120;i++){
+for (let i = 0; i < 120; i++) {
 
-    const particle=document.createElement("div");
+    const particle = document.createElement("div");
 
     particle.classList.add("particle");
 
-    const size=Math.random()*4+2;
+    const size = Math.random() * 4 + 2;
 
-    particle.style.width=size+"px";
-    particle.style.height=size+"px";
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
 
-    particle.style.left=Math.random()*100+"%";
+    particle.style.left = Math.random() * 100 + "%";
 
-    particle.style.animationDuration=
-    (Math.random()*10+8)+"s";
+    particle.style.animationDuration =
+        (Math.random() * 10 + 8) + "s";
 
-    particle.style.animationDelay=
-    Math.random()*5+"s";
+    particle.style.animationDelay =
+        Math.random() * 5 + "s";
 
-    particle.style.opacity=Math.random();
+    particle.style.opacity = Math.random();
 
     particleContainer.appendChild(particle);
 
@@ -260,11 +330,11 @@ for(let i=0;i<120;i++){
 // Cursor Glow
 // ================================
 
-document.addEventListener("mousemove",(e)=>{
+document.addEventListener("mousemove", (e) => {
 
-    cursorGlow.style.left=e.clientX+"px";
+    cursorGlow.style.left = e.clientX + "px";
 
-    cursorGlow.style.top=e.clientY+"px";
+    cursorGlow.style.top = e.clientY + "px";
 
 });
 
@@ -273,8 +343,8 @@ document.addEventListener("mousemove",(e)=>{
 // Back
 // ================================
 
-backBtn.addEventListener("click",()=>{
+backBtn.addEventListener("click", () => {
 
-    window.location.href="difficulty.html";
+    window.location.href = "difficulty.html";
 
 });

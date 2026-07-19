@@ -3,7 +3,7 @@
         MEDIUM MODE STORIES
         LEVELS 101–110
 ==========================================*/
-
+// alert("medium js loaded");
 const mediumStories = [
 
 /*==========================================
@@ -8148,3 +8148,6 @@ const mediumStories = [
 
 
 ];
+
+console.log("medium loaded : ", mediumStories.length);
+

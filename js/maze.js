@@ -105,6 +105,31 @@ difficultyMode.innerHTML =
 
 
 // ==========================================
+// Load Current Story
+// ==========================================
+
+let currentStory = null;
+
+if (difficulty === "Medium") {
+
+    currentStory = mediumStories.find(
+        story => story.level === level 
+    );
+
+}
+
+if (currentStory) {
+
+    console.log("Current Story:", currentStory);
+
+} else {
+
+    console.log("Story not found");
+
+}
+
+
+// ==========================================
 // Difficulty Settings
 // ==========================================
 
@@ -148,6 +173,22 @@ switch (difficulty) {
 
 }
 
+if (difficulty === "Medium" && currentStory) {
+
+    if (currentStory.mazeSize) {
+        GRID_SIZE = currentStory.mazeSize;
+    }
+
+    if (currentStory.timeLimit) {
+        TIME_LIMIT = currentStory.timeLimit;
+    }
+
+    if (typeof currentStory.hints === "number") {
+        TOTAL_HINTS = currentStory.hints;
+    }
+
+}
+
 mazeSizeText.innerHTML =
     GRID_SIZE + " × " + GRID_SIZE;
 
@@ -175,17 +216,6 @@ const CELL_SIZE =
 // ==========================================
 
 let maze = [];
-
-// let playerX = 0;
-// let playerY = 0;
-
-// let exitX =
-//     GRID_SIZE - 1;
-
-// let exitY =
-//     GRID_SIZE - 1;
-
-// let steps = 0;
 
 let timer = TIME_LIMIT;
 
@@ -734,8 +764,6 @@ function initMaze() {
 
     totalSteps = 0;
 
-    // steps = 0;
-
     stepCounter.innerHTML = "Steps : 0";
 
     generateMaze();
@@ -1214,8 +1242,7 @@ function completeLevel() {
     gameWon = true;
 
     saveProgress();
-    // unlockNextLevel();
-    
+
     // Stop Timer
 
     if (typeof timerInterval !== "undefined") {
@@ -1226,23 +1253,40 @@ function completeLevel() {
 
     // Rewards
 
-    let rewardCoins = level * 20;
+    let rewardCoins;
+    let rewardXP;
 
-    let rewardXP = level * 10;
+    // Agar Medium/story-based reward available hai to wahi use karo
 
-    if (level % 5 === 0) {
+    if (currentStory && currentStory.reward) {
 
-        rewardCoins += 100;
+        rewardCoins = currentStory.reward.coins || 0;
 
-        rewardXP += 50;
+        rewardXP = currentStory.reward.xp || 0;
 
-    }
+    } else {
 
-    if (level % 10 === 0) {
+        // Easy / Extreme ke liye generic formula
 
-        rewardCoins += 300;
+        rewardCoins = level * 20;
 
-        rewardXP += 150;
+        rewardXP = level * 10;
+
+        if (level % 5 === 0) {
+
+            rewardCoins += 100;
+
+            rewardXP += 50;
+
+        }
+
+        if (level % 10 === 0) {
+
+            rewardCoins += 300;
+
+            rewardXP += 150;
+
+        }
 
     }
 
@@ -1255,12 +1299,13 @@ function completeLevel() {
         (player.xp || 0) + rewardXP;
 
     localStorage.setItem(
-         
+
         "player",
 
         JSON.stringify(player)
 
     );
+
     refreshPlayerStats();
 
     // Update Popup
@@ -1278,25 +1323,36 @@ function completeLevel() {
 }
 /*==========================================
         SAVE PROGRESS
+        (Difficulty-wise key, same as levels.js)
 ==========================================*/
 
 function saveProgress() {
+
+    const progressKey = difficulty + "_progress";
 
     let progress =
 
         JSON.parse(
 
-            localStorage.getItem("progress")
+            localStorage.getItem(progressKey)
 
         );
 
     if (!progress) {
 
+        let startLevel = 1;
+
+        if (difficulty === "Medium") startLevel = 101;
+
+        if (difficulty === "Extreme") startLevel = 201;
+
         progress = {
 
-            currentLevel: 1,
+            currentLevel: startLevel,
 
-            completed: 0
+            completed: 0,
+
+            coins: 0
 
         };
 
@@ -1320,7 +1376,7 @@ function saveProgress() {
 
     localStorage.setItem(
 
-        "progress",
+        progressKey,
 
         JSON.stringify(progress)
 
@@ -1392,8 +1448,6 @@ dashboardBtn.addEventListener(
 function checkWin() {
 
     if (
-
-
 
         playerPos.row === GRID_SIZE - 1 &&
 
@@ -1525,6 +1579,48 @@ backBtn.addEventListener("click", () => {
 
 });
 // ==========================================
+// Pause Popup — Restart / Exit
+// ==========================================
+
+const restartGameBtn = document.getElementById("restartGameBtn");
+
+if (restartGameBtn) {
+
+    restartGameBtn.addEventListener("click", () => {
+
+        location.reload();
+
+    });
+
+}
+
+const exitGameBtn = document.getElementById("exitGameBtn");
+
+if (exitGameBtn) {
+
+    exitGameBtn.addEventListener("click", () => {
+
+        window.location.href = "levels.html";
+
+    });
+
+}
+// ==========================================
+// Game Over Popup — Dashboard
+// ==========================================
+
+const exitBtn = document.getElementById("exitBtn");
+
+if (exitBtn) {
+
+    exitBtn.addEventListener("click", () => {
+
+        window.location.href = "levels.html";
+
+    });
+
+}
+// ==========================================
 // Keyboard Shortcuts
 // ==========================================
 
@@ -1554,8 +1650,6 @@ window.addEventListener("load", () => {
     loadingScreen.classList.add("hidden");
 
     initMaze();
-
-    // startTimer();
 
     refreshPlayerStats();
 
@@ -1615,8 +1709,6 @@ function drawPlayer() {
 
     ctx.fill();
 
-    console.log("drawPlayer called");
-
 }
 
 // ==========================================
@@ -1625,23 +1717,16 @@ function drawPlayer() {
 
 function movePlayer(direction) {
 
-    
-
     if (gamePaused || gameWon) {
 
         return;
 
     }
-    // if(!maze.lenth){
-    //     return;
-    // }
+
     let moved = false;
 
     let current =
         maze[playerPos.row][playerPos.col];
-        // if(!current){
-        //     return;
-        // }
 
     switch (direction) {
 
@@ -1694,13 +1779,10 @@ function movePlayer(direction) {
 
     stepCounter.innerHTML =
         "Steps : " + totalSteps;
-    // drawMaze();
-    //drawplayer();
+
     renderMaze();
 
     checkWin();
-
-    console.log("drawPlayer called");
 
 }
 // ==========================================
@@ -1708,8 +1790,6 @@ function movePlayer(direction) {
 // ==========================================
 
 document.addEventListener("keydown", (e) => {
-
-    console.log("Key pressed:", e.key);
 
     switch(e.key){
 

@@ -157,6 +157,21 @@ if(!currentStory){
 
 function getWorld(level){
 
+       if (difficulty === "Medium") {
+
+        if (level <= 110) return "🏠 School Journey";
+        if (level <= 120) return "🌳 Emerald Jungle";
+        if (level <= 130) return "🏴‍☠️ Pirate Island";
+        if (level <= 140) return "🏜 Golden Desert";
+        if (level <= 150) return "❄ Snow Kingdom";
+        if (level <= 160) return "🏰 Haunted Castle";
+        if (level <= 170) return "🌋 Volcano Kingdom";
+        if (level <= 180) return "🌊 Ocean Kingdom";
+        if (level <= 190) return "🚀 Space Galaxy";
+        return "🌌 Galaxy Kingdom";
+
+    }
+
     if(level<=10)
         return "🌲 Lost Forest";
 
@@ -289,16 +304,16 @@ optionButtons.forEach(button=>{
 
 const totalLevels = stories.length;
 
-const percent =
-Math.round(
-(selectedLevel/totalLevels)*100
+const currentIndex = stories.findIndex(
+    story => story.level === selectedLevel
 );
 
-progressFill.style.width =
-percent + "%";
+const percent = Math.round(
+    ((currentIndex + 1) / totalLevels) * 100
+);
 
-progressText.textContent =
-percent + "%";
+progressFill.style.width = percent + "%";
+progressText.textContent = percent + "%";
 
 // ======================================
 // SUBMIT ANSWER
