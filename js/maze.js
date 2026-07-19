@@ -217,6 +217,11 @@ const CELL_SIZE =
 
 let maze = [];
 
+let currentLevelData = null;
+let currentObjects = [];
+let collectedKeys = [];
+let objectAnimInterval = null;
+
 let timer = TIME_LIMIT;
 
 let gamePaused = false;
@@ -767,7 +772,40 @@ function initMaze() {
     stepCounter.innerHTML = "Steps : 0";
 
     generateMaze();
-    console.log("Maze:", maze);
+
+    // 👇 YAHAN ye code add karo
+    if (difficulty === "Medium") {
+
+        currentLevelData = mediumStories.find(
+            story => story.level === level
+        );
+
+    }
+
+    else if (difficulty === "Easy") {
+
+        currentLevelData = easyStories.find(
+            story => story.level === level
+        );
+
+    }
+
+    else {
+
+        currentLevelData = extremeStories.find(
+            story => story.level === level
+        );
+
+    }
+
+    
+
+currentObjects = currentLevelData
+        ? JSON.parse(JSON.stringify(currentLevelData.maze.objects || []))
+        : [];
+
+
+    collectedKeys = [];
 
     renderMaze();
 
@@ -784,6 +822,8 @@ function initMaze() {
         startTimer();
 
     }
+
+    startObjectMovement();
 
 }
 /*==========================================
@@ -956,10 +996,445 @@ function renderMaze() {
 
     drawFinishFlag();
 
+    drawObjects();
+
     drawPlayer();
 
 }
+function drawObjects(){
+
+    currentObjects.forEach(object=>{
+
+        switch(object.type){
+
+            case "key":
+
+                drawKey(object);
+
+                break;
+
+            case "gate":
+
+                drawGate(object);
+
+                break;
+
+        }
+
+    });
+
+}
 /*==========================================
+        OBJECT ICONS
+==========================================*/
+
+const OBJECT_ICONS = {
+
+    key: "🔑", templeKey: "🔑", goldKey: "🔑", desertKey: "🔑",
+    iceKey: "🔑", hauntedKey: "🔑", fireKey: "🔑", pearlKey: "🔑",
+    energyKey: "🔑", galaxyKey: "🔑", treasureKey: "🔑",
+
+    gate: "🚪", bridgeGate: "🚪", finalGate: "🚪", templeGate: "🚪",
+    magicGate: "🚪", stoneDoor: "🚪", iceGate: "🚪", magicDoor: "🚪",
+    secretDoor: "🚪", fireGate: "🚪", pearlGate: "🚪", spaceGate: "🚪",
+    treasureDoor: "🚪", sunGate: "🚪",
+
+    coin: "🪙", goldCoin: "🪙",
+
+    heart: "❤️",
+
+    coral: "🪸", bubble: "🫧", bubbleLift: "🫧",
+
+    tree: "🌳", snowTree: "🌲", palmTree: "🌴", bush: "🌿",
+
+    compass: "🧭",
+
+    lion: "🦁", tiger: "🐯", snake: "🐍", monkey: "🐒", banana: "🍌",
+    bat: "🦇", wolf: "🐺", dog: "🐕", crab: "🦀", fish: "🐟",
+    shark: "🦈", jellyfish: "🪼", octopus: "🐙", tentacle: "🦑",
+    eagle: "🦅", parrot: "🦜", scorpion: "🦂", camel: "🐪", dolphin: "🐬",
+
+    crystal: "💎", snowCrystal: "❄️", fireCrystal: "🔥",
+    coolCrystal: "🧊", sunCrystal: "☀️", spaceCrystal: "💎",
+    energyCrystal: "💎", oceanCrystal: "💎", phoenixCrystal: "🔥",
+    shadowCrystal: "🔮", frozenCrystal: "💙",
+
+    treasure: "🏆", treasureChest: "🎁",
+
+    diamond: "💎", pearl: "🦪",
+
+    guardian: "🛡️", galaxyGuard: "🛡️", eliteGuard: "🛡️",
+    eliteAlien: "👽", sunGuardian: "🛡️",
+
+    ghost: "👻", skeleton: "💀", giantSpider: "🕷️", spiderWeb: "🕸️",
+    darkKing: "👑", darkMagic: "🌀",
+
+    torch: "🔥", lantern: "🏮", lever: "🔧",
+
+    river: "🌊", water: "💧", waterBottle: "🥤", oasis: "🏝️",
+    bridge: "🌉", brokenBridge: "🌉", movingBridge: "🌉",
+    iceBridge: "🌉", crackedIce: "🧊", iceTile: "🧊",
+
+    lava: "🌋", fireball: "🔥", heatZone: "🔥", eruption: "🌋",
+    fallingRock: "🪨", fireSwitch: "🔘", babyDragon: "🐲",
+    fireDragon: "🐉", dragonEgg: "🥚",
+
+    umbrella: "☂️", police: "👮", movingCar: "🚗", bus: "🚌",
+    trafficSignal: "🚦", principal: "🧑‍💼",
+
+    cactus: "🌵", sandstorm: "🌪️",
+
+    hiddenPassage: "🕳️", trap: "⚠️",
+
+    snowman: "⛄", blizzard: "❄️", iceQueen: "👸",
+
+    ropeTrap: "🪢", pirate: "🏴‍☠️", pirateCaptain: "🏴‍☠️",
+    cannon: "💣", whirlpool: "🌀", anchor: "⚓", current: "🌊",
+
+    robot: "🤖", rocketFire: "🔥", platform: "🟦", satellite: "🛰️",
+    meteor: "☄️", moonDrone: "🤖", crater: "🕳️", jumpPad: "⬆️",
+    alien: "👽", energyOrb: "🔵", ufo: "🛸", fuelCell: "🔋",
+    blackHole: "⚫", laser: "🔴", portal: "🌀", drone: "🤖",
+    shockwave: "💥", wormhole: "🌀", galaxyCrown: "👑",
+    cosmicRift: "🌌", guardianDrone: "🤖", rotatingLaser: "🔴",
+    reactorCore: "⚛️", teleporter: "🌀", laserWall: "🔴",
+    laserStorm: "⚡", guardianKing: "👑", galaxyCore: "🌌",
+
+    gift: "🎁", badge: "🎖️", road: "🛣️", desertCrown: "👑"
+
+};
+
+function getObjectIcon(type) {
+
+    return OBJECT_ICONS[type] || "❓";
+
+}
+
+/*==========================================
+        OBJECT CATEGORIES (behavior)
+==========================================*/
+
+const COLLECTIBLE_TYPES = [
+    "key","templeKey","goldKey","desertKey","iceKey","hauntedKey","fireKey",
+    "pearlKey","energyKey","galaxyKey","treasureKey",
+    "coin","goldCoin","crystal","snowCrystal","fireCrystal","coolCrystal",
+    "sunCrystal","spaceCrystal","energyCrystal","oceanCrystal","phoenixCrystal",
+    "shadowCrystal","frozenCrystal","diamond","pearl","treasure","treasureChest",
+    "compass","waterBottle","umbrella","banana","dragonEgg","energyOrb",
+    "fuelCell","gift","badge","desertCrown","galaxyCrown","galaxyCore"
+];
+
+const HEART_TYPES = ["heart"];
+
+const HAZARD_TYPES = [
+    "lion","tiger","snake","wolf","dog","shark","jellyfish","scorpion",
+    "ghost","skeleton","giantSpider","darkKing","fireball","lava","eruption",
+    "fallingRock","babyDragon","fireDragon","movingCar","cannon","whirlpool",
+    "pirate","pirateCaptain","meteor","alien","ufo","blackHole","laser",
+    "rotatingLaser","laserWall","laserStorm","guardianKing","guardian",
+    "sunGuardian","eliteAlien","eliteGuard","galaxyGuard","robot","moonDrone",
+    "drone","guardianDrone","crab","octopus","monkey","bat","sandstorm",
+    "blizzard","trap","cosmicRift","shockwave","iceQueen"
+];
+
+const GATE_TYPES = [
+    "gate","bridgeGate","finalGate","templeGate","magicGate","stoneDoor",
+    "iceGate","magicDoor","secretDoor","fireGate","pearlGate","spaceGate",
+    "treasureDoor","sunGate"
+];
+
+/*==========================================
+        DRAW ALL OBJECTS
+==========================================*/
+
+function drawObjects() {
+
+    currentObjects.forEach(object => {
+
+        const x = object.col * CELL_SIZE + CELL_SIZE / 2;
+        const y = object.row * CELL_SIZE + CELL_SIZE / 2;
+
+        ctx.font = (CELL_SIZE * 0.5) + "px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        ctx.fillText(getObjectIcon(object.type), x, y);
+
+    });
+
+}
+
+/*==========================================
+        OBJECT MOVEMENT (Animated)
+==========================================*/
+
+function startObjectMovement() {
+
+    if (objectAnimInterval) {
+
+        clearInterval(objectAnimInterval);
+
+    }
+
+    objectAnimInterval = setInterval(() => {
+
+        if (gamePaused || gameWon) {
+
+            return;
+
+        }
+
+        let moved = false;
+
+        currentObjects.forEach(object => {
+
+            if (!object.movement) return;
+
+            const speed = object.speed || 1;
+
+            switch (object.movement) {
+
+                case "horizontal": {
+
+                    const minCol = object.minCol ?? object.startCol ?? 0;
+                    const maxCol = object.maxCol ?? object.endCol ?? (GRID_SIZE - 1);
+
+                    if (object._dir === undefined) object._dir = 1;
+
+                    object.col += object._dir * speed * 0.2;
+
+                    if (object.col >= maxCol) { object.col = maxCol; object._dir = -1; }
+                    else if (object.col <= minCol) { object.col = minCol; object._dir = 1; }
+
+                    moved = true;
+                    break;
+                }
+
+                case "vertical": {
+
+                    const minRow = object.minRow ?? 0;
+                    const maxRow = object.maxRow ?? (GRID_SIZE - 1);
+
+                    if (object._dir === undefined) object._dir = 1;
+
+                    object.row += object._dir * speed * 0.2;
+
+                    if (object.row >= maxRow) { object.row = maxRow; object._dir = -1; }
+                    else if (object.row <= minRow) { object.row = minRow; object._dir = 1; }
+
+                    moved = true;
+                    break;
+                }
+
+                case "random": {
+
+                    object.row += (Math.random() - 0.5) * 0.4 * speed;
+                    object.col += (Math.random() - 0.5) * 0.4 * speed;
+
+                    object.row = Math.max(0, Math.min(GRID_SIZE - 1, object.row));
+                    object.col = Math.max(0, Math.min(GRID_SIZE - 1, object.col));
+
+                    moved = true;
+                    break;
+                }
+
+                case "circle":
+                case "circular": {
+
+                    const radius = object.radius || 2;
+
+                    if (object._angle === undefined) object._angle = 0;
+
+                    const cr = object._centerRow ?? object.row;
+                    const cc = object._centerCol ?? object.col;
+
+                    object._centerRow = cr;
+                    object._centerCol = cc;
+
+                    object._angle += 0.05 * speed;
+
+                    object.row = cr + Math.sin(object._angle) * radius;
+                    object.col = cc + Math.cos(object._angle) * radius;
+
+                    moved = true;
+                    break;
+                }
+
+                case "path": {
+
+                    if (!object.path || object.path.length === 0) return;
+
+                    if (object._pathIndex === undefined) object._pathIndex = 0;
+
+                    const target = object.path[object._pathIndex];
+
+                    const dr = target.row - object.row;
+                    const dc = target.col - object.col;
+
+                    const dist = Math.sqrt(dr * dr + dc * dc);
+
+                    if (dist < 0.3) {
+
+                        object._pathIndex = (object._pathIndex + 1) % object.path.length;
+
+                    } else {
+
+                        object.row += (dr / dist) * 0.15 * speed;
+                        object.col += (dc / dist) * 0.15 * speed;
+
+                    }
+
+                    moved = true;
+                    break;
+                }
+
+            }
+
+        });
+
+        if (moved) {
+
+            renderMaze();
+            checkObjectCollision();
+
+        }
+
+    }, 150);
+
+}
+
+/*==========================================
+        OBJECT COLLISION
+==========================================*/
+
+function checkObjectCollision() {
+
+    for (let i = currentObjects.length - 1; i >= 0; i--) {
+
+        const object = currentObjects[i];
+
+        const objRow = Math.round(object.row);
+        const objCol = Math.round(object.col);
+
+        if (objRow !== playerPos.row || objCol !== playerPos.col) {
+            continue;
+        }
+
+        // Collectible
+
+        if (COLLECTIBLE_TYPES.includes(object.type)) {
+
+            if (object.type.toLowerCase().includes("key")) {
+                collectedKeys.push(object.type);
+            }
+
+            if (object.value) {
+
+                player.coins = (player.coins || 0) + object.value;
+
+                localStorage.setItem("player", JSON.stringify(player));
+
+                refreshPlayerStats();
+
+            }
+
+            currentObjects.splice(i, 1);
+
+            continue;
+
+        }
+
+        // Heart
+
+        if (HEART_TYPES.includes(object.type)) {
+
+            player.lives = (player.lives || 3) + 1;
+
+            if (livesText) livesText.innerHTML = player.lives;
+
+            currentObjects.splice(i, 1);
+
+            continue;
+
+        }
+
+        // Gate (needs key)
+
+        if (GATE_TYPES.includes(object.type)) {
+
+            if (collectedKeys.length > 0) {
+
+                currentObjects.splice(i, 1);
+
+            } else {
+
+                alert("🔒 This gate is locked! Find a key first.");
+
+                pushPlayerBack();
+
+            }
+
+            continue;
+
+        }
+
+        // Hazard
+
+        if (HAZARD_TYPES.includes(object.type)) {
+
+            handlePlayerHit();
+
+            continue;
+
+        }
+
+    }
+
+}
+
+function pushPlayerBack() {
+
+    playerPos.row = 0;
+    playerPos.col = 0;
+
+    renderMaze();
+
+}
+
+function handlePlayerHit() {
+
+    player.lives = (player.lives || 3) - 1;
+
+    if (livesText) {
+        livesText.innerHTML = Math.max(player.lives, 0);
+    }
+
+    if (player.lives <= 0) {
+
+        gameOver();
+
+    } else {
+
+        alert("⚠️ You got caught! Back to start.");
+
+        playerPos.row = 0;
+        playerPos.col = 0;
+
+        renderMaze();
+
+    }
+
+}
+
+
+
+
+
+
+
+
+/*===========
+===============================
         HINT SYSTEM (BFS)
         PART-6
 ==========================================*/
@@ -1783,6 +2258,8 @@ function movePlayer(direction) {
     renderMaze();
 
     checkWin();
+
+    checkObjectCollision();
 
 }
 // ==========================================

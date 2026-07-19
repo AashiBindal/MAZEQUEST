@@ -99,12 +99,15 @@ const mediumStories = [
 
         end:"🏫",
 
+        
+
         objects:[
+
 
             {
                 type:"key",
-                row:4,
-                col:3
+                row:5,
+                col:6
             },
 
             {
